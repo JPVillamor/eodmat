@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>MAT App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
+    <script src='https://cdn.plot.ly/plotly-2.9.0.min.js'></script>
+
+	<style>
+		h1 {text-align: center;}
+        p {text-align: center;}
+	</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    button {
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      margin:0 auto;
+      display:block;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      margin:0 auto;
+      background-color: white; 
+      color: black; 
+      border: 2px solid #008CBA;
+    }
+    </style>
+<style>
+.force_top {
+  height: 100px;
+  width: 100px;
+  background-color: #4FD759;
+  border-radius: 50%;
+  margin: auto;
+}
+</style>
+
+<style>
+  .legend {
+    height: 50px;
+    width: 500px;
+    margin: 20px;
+    background-image: linear-gradient(to right,  #FADA26 33%, #4FD759 33% 67%, #F01107 67%);
+    margin: auto;
+  }
+</style>
+
+<div class="force_top"></div>
+<p><br><br><br><br></p>
+<h1>Install Barrier Material</h1>
+<p><br><br><br></p>
+
+
+<div class="force_left"></div>
+<div class="force_right"></div>
+<p><br></p>
+<div class="legend"></div>
+<p>Too Loose&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Good&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Too Tight</p>
+
+<p><br><br></p>
+<style>
+    .container {
+      height: 200px;
+      position: relative;
+      border: 3px solid green; 
+    }
+    
+    .vertical-center {
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+    }
+    </style>
+    
+<form action="{% url 'index'%}">
+    <button .button1 type="Start">Next</button>
+</form>
+<p></p><br><br><br></p>
+
+<div class="force_bottom"></div>
+<script>changeColorGreen()</script>
+    </head>
+    <body>
+    <script>
+        var x = document.getElementById("myDIV");
+        x.style.display = "none"
+        function myFunction1() {
+          
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+        }
+        function next(){
+          var a = document.getElementById("mylink")
+        }
+    </script>
+
+    <script>
+
+var topForceData;
+var bottomForceData;
+var leftForceData;
+var rightForceData;
+
+
+ var socket = new WebSocket('ws://localhost:8000/ws/some_url/');
+
+ socket.onmessage = function(event) {
+             var data = JSON.parse(event.data); //data.<dictionary key>
+            
+             if(data.sensor == 'topForce') {
+               topForceData = data.value;
+             }
+             else if(data.sensor == 'bottomForce') {
+               bottomForceData = data.value;
+             }
+             else if(data.sensor == 'leftForce') {
+               leftForceData = data.value;
+             }
+             else if(data.sensor == 'rightForce') {
+               rightForceData = data.value;
+             }
+           }
+        
+
+  var a1 = function(p) {
+    p.setup = function() {
+       let canvas1 = p.createCanvas(400, 200); 
+       var x = (p.windowWidth - p.width) / 2;  
+       canvas1.position(x, 0); 
+    }
+
+   p.draw = function() {
+      p.background(255);     
+      // Use color() function
+      var c = p.color('green');
+      if (topForceData < 5) {
+        c = p.color('green');
+      }
+      else {
+        c = p.color('red');
+      }
+
+      // Use fill() function to fill color
+      p.fill(c);
+
+      // Draw a circle 
+      p.circle(200, 100, 100); 
+    }
+}
+var myp5_1 = new p5(a1);
+
+
+var a2 = function(p) {
+    p.setup = function() {
+       let canvas2 = p.createCanvas(400, 200); 
+       var x = (p.windowWidth - p.width) / 2;  
+       canvas2.position(x, 600);  
+    }
+
+   p.draw = function() {
+      p.background(255);     
+      // Use color() function
+      var c = p.color('green');
+      if (bottomForceData < 5) {
+        c = p.color('green');
+      }
+      else {
+        c = p.color('red');
+      }
+
+      // Use fill() function to fill color
+      p.fill(c);
+
+      // Draw a circle 
+      p.circle(200, 100, 100); 
+    }
+}
+var myp5_2 = new p5(a2);
+
+var a3 = function(p) {
+    p.setup = function() {
+       let canvas3 = p.createCanvas(200, 200); 
+       var y = (p.windowHeight - p.Height);  
+       canvas3.position(0, 300);  
+    }
+
+   p.draw = function() {
+      p.background(255);     
+      // Use color() function
+      var c = p.color('green');
+      if (rightForceData < 5) {
+        c = p.color('green');
+      }
+      else {
+        c = p.color('red');
+      }
+
+      // Use fill() function to fill color
+      p.fill(c);
+
+      // Draw a circle 
+      p.circle(100, 100, 100); 
+    }
+}
+var myp5_3 = new p5(a3);
+  
+
+var a4 = function(p) {
+    p.setup = function() {
+       let canvas4 = p.createCanvas(200, 200); 
+       var y = (p.windowHeight - p.Height);  
+       canvas4.position(1200, 300);  
+    }
+
+   p.draw = function() {
+      p.background(255);     
+      // Use color() function
+      var c = p.color('green');
+      if (leftForceData < 5) {
+        c = p.color('green');
+      }
+      else {
+        c = p.color('red');
+      }
+
+      // Use fill() function to fill color
+      p.fill(c);
+
+      // Draw a circle 
+      p.circle(100, 100, 100); 
+    }
+}
+var myp5_4 = new p5(a4);
+  
+
+</script>
+
+ 
+    </body>
+    
+</html>
+
