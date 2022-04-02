@@ -7,9 +7,6 @@ import csv
 def index(request):
     return render(request, 'index.html', context={'text': 'Hello World'})
 
-def index(request):
-    return render(request, 'index.html', context={'text': 'Hello World'})
-
 def home(request):
     return render(request, 'home.html')
 
