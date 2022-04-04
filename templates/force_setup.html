@@ -110,7 +110,12 @@ var leftForceData;
 var rightForceData;
 
 
- var socket = new WebSocket('ws://localhost:8000/ws/some_url/');
+ //var socket = new WebSocket('ws://localhost:8000/ws/some_url/');
+ const socket = new WebSocket (
+    'ws://' +
+    window.location.host +
+    '/ws/some_url/'
+  );
 
  socket.onmessage = function(event) {
              var data = JSON.parse(event.data); //data.<dictionary key>

@@ -182,7 +182,12 @@
         </div>
     <script>
         
-        var socket = new WebSocket('ws://localhost:8000/ws/some_url/');
+        //var socket = new WebSocket('ws://localhost:8000/ws/some_url/');
+        const socket = new WebSocket (
+            'ws://' +
+            window.location.host +
+            '/ws/some_url/'
+        );
         const myData = [];
         const myDataTemp = [];
         const myDataSound = [];
