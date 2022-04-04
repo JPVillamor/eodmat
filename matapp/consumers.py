@@ -1,7 +1,5 @@
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 import json
-from asyncio import sleep
-from asgiref.sync import sync_to_async
 
 '''
 from .models import Sensor
