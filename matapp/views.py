@@ -1,3 +1,4 @@
+import mimetypes
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
@@ -11,7 +12,12 @@ def home(request):
     return render(request, 'home.html')
 
 def force_setup(request):
-    return render(request, 'force_setup.html')    
+    return render(request, 'force_setup.html') 
+
+def chart_js(request):
+    filename = request.path.strip('/')
+    data = open(filename, "rb").read()
+    return HttpResponse(data, mimetype='application/javascript')
 
 
 def exportcsv(request):
