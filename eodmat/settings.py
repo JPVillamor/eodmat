@@ -37,7 +37,6 @@ ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1:8000', '127.0.0.1', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -106,6 +105,10 @@ CACHES = {
         }
     }
 }
+
+MIDDLEWARE_CLASSES = (
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
