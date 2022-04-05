@@ -15,7 +15,7 @@ def force_setup(request):
     return render(request, 'force_setup.html') 
 
 def chart_js(request):
-    return HttpResponse(request,'chart.js', content_type='text/javascript; charset=utf-8')
+    return HttpResponse(request,'chart.js', content_type='text/javascript')
 
 
 def exportcsv(request):
