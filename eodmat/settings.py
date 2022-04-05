@@ -28,7 +28,7 @@ DEBUG = True
 
 import mimetypes
 mimetypes.add_type("text/html", ".html", True)
-mimetypes.add_type("application/javascript", ".js", True)
+mimetypes.add_type("text/javascript", ".js", True)
 mimetypes.add_type("text/css", ".css", True)
 
 ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1:8000', '127.0.0.1', 'localhost']
