@@ -60,41 +60,45 @@
 
 
 <script>
-var topForceData = 10;
-var bottomForceData = 10;
-var leftForceData = 10;
-var rightForceData = 10;
+// var topForceData = 10;
+// var bottomForceData = 10;
+// var leftForceData = 10;
+// var rightForceData = 10;
 
-sessionStorage.setItem("finalTopForceVal", topForceData);
-sessionStorage.setItem("finalBottomForceVal", bottomForceData);
-sessionStorage.setItem("finalLeftForceVal", leftForceData);
-sessionStorage.setItem("finalRightForceVal", rightForceData);
+// sessionStorage.setItem("finalTopForceVal", topForceData);
+// sessionStorage.setItem("finalBottomForceVal", bottomForceData);
+// sessionStorage.setItem("finalLeftForceVal", leftForceData);
+// sessionStorage.setItem("finalRightForceVal", rightForceData);
 
+var topForceData;
+var bottomForceData;
+var leftForceData;
+var rightForceData;
 
-// const socket = new WebSocket (
-//     'ws://' + window.location.host + '/ws/some_url/'
-// );
+const socket = new WebSocket (
+    'ws://' + window.location.host + '/ws/some_url/'
+);
 
-// socket.onmessage = function(event) {
-//   var data = JSON.parse(event.data); //data.<dictionary key>
+socket.onmessage = function(event) {
+  var data = JSON.parse(event.data); //data.<dictionary key>
   
-//   if(data.sensor == 'topForce') {
-//     topForceData = data.value;
-//     sessionStorage.setItem("finalTopForceVal", topForceData);
-//   }
-//   else if (data.sensor == 'bottomForce') {
-//     bottomForceData = data.value;
-//     sessionStorage.setItem("finalBottomForceVal", bottomForceData);
-//   }
-//   else if (data.sensor == 'leftForce') {
-//     leftForceData = data.value;
-//     sessionStorage.setItem("finalLeftForceVal", leftForceData);
-//   }
-//   else if (data.sensor == 'rightForce') {
-//     rightForceData = data.value;
-//     sessionStorage.setItem("finalRightForceVal", rightForceData);
-//   }
-// }
+  if(data.sensor == 'topForce') {
+    topForceData = data.value;
+    sessionStorage.setItem("finalTopForceVal", topForceData);
+  }
+  else if (data.sensor == 'bottomForce') {
+    bottomForceData = data.value;
+    sessionStorage.setItem("finalBottomForceVal", bottomForceData);
+  }
+  else if (data.sensor == 'leftForce') {
+    leftForceData = data.value;
+    sessionStorage.setItem("finalLeftForceVal", leftForceData);
+  }
+  else if (data.sensor == 'rightForce') {
+    rightForceData = data.value;
+    sessionStorage.setItem("finalRightForceVal", rightForceData);
+  }
+}
         
 // top force sensor
 var topForce = function(p) {
