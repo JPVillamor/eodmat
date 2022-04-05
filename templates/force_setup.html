@@ -1,10 +1,9 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
     <head>
     <title>MAT App</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
-    <script src='https://cdn.plot.ly/plotly-2.9.0.min.js'></script>
+    <script src="{% static 'p5.js' %}"></script>
 
 	<style>
 		h1 {text-align: center;}
@@ -13,29 +12,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+
     button {
-      padding: 16px 32px;
+      padding: 10px 20px;
+      margin: 5px;
       text-align: center;
-      text-decoration: none;
-      font-size: 16px;
-      margin:0 auto;
-      display:block;
       transition-duration: 0.4s;
       cursor: pointer;
       margin:0 auto;
-      background-color: white; 
-      color: black; 
-      border: 2px solid #008CBA;
+      background-color: green;
+      color: #fff;
+      display:block;
+      border: none;    
+      outline: none;
+      border-radius: 5px;
     }
-    </style>
-<style>
-.force_top {
-  height: 100px;
-  width: 100px;
-  background-color: #4FD759;
-  border-radius: 50%;
-  margin: auto;
-}
+
 </style>
 
 <style>
@@ -43,114 +35,88 @@
     height: 50px;
     width: 500px;
     margin: 20px;
-    background-image: linear-gradient(to right,  #FADA26 33%, #4FD759 33% 67%, #F01107 67%);
+    background-image: linear-gradient(to right,  gold 33%, LimeGreen 33% 67%, Red 67%);
     margin: auto;
   }
 </style>
 
-<div class="force_top"></div>
-<p><br><br><br><br></p>
+<p><br><br><br><br><br><br><br><br><br></p>
 <h1>Install Barrier Material</h1>
 <p><br><br><br></p>
 
 
-<div class="force_left"></div>
-<div class="force_right"></div>
 <p><br></p>
 <div class="legend"></div>
-<p>Too Loose&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Good&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Too Tight</p>
+<p>Too Loose&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Good&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Too Tight</p>
 
 <p><br><br></p>
-<style>
-    .container {
-      height: 200px;
-      position: relative;
-      border: 3px solid green; 
-    }
-    
-    .vertical-center {
-      margin: 0;
-      position: absolute;
-      top: 50%;
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%);
-    }
-    </style>
-    
+
+
 <form action="{% url 'index'%}">
     <button .button1 type="Start">Next</button>
 </form>
+
 <p></p><br><br><br></p>
 
-<div class="force_bottom"></div>
-<script>changeColorGreen()</script>
-    </head>
-    <body>
-    <script>
-        var x = document.getElementById("myDIV");
-        x.style.display = "none"
-        function myFunction1() {
-          
-          if (x.style.display === "none") {
-            x.style.display = "block";
-          } else {
-            x.style.display = "none";
-          }
-        }
-        function next(){
-          var a = document.getElementById("mylink")
-        }
-    </script>
 
-    <script>
+<script>
+var topForceData = 10;
+var bottomForceData = 10;
+var leftForceData = 10;
+var rightForceData = 10;
 
-var topForceData;
-var bottomForceData;
-var leftForceData;
-var rightForceData;
+sessionStorage.setItem("finalTopForceVal", topForceData);
+sessionStorage.setItem("finalBottomForceVal", bottomForceData);
+sessionStorage.setItem("finalLeftForceVal", leftForceData);
+sessionStorage.setItem("finalRightForceVal", rightForceData);
 
 
- //var socket = new WebSocket('ws://localhost:8000/ws/some_url/');
- const socket = new WebSocket (
-    'ws://' +
-    window.location.host +
-    '/ws/matserver/'
-  );
+// const socket = new WebSocket (
+//     'ws://' + window.location.host + '/ws/some_url/'
+// );
 
- socket.onmessage = function(event) {
-             var data = JSON.parse(event.data); //data.<dictionary key>
-            
-             if(data.sensor == 'topForce') {
-               topForceData = data.value;
-             }
-             else if(data.sensor == 'bottomForce') {
-               bottomForceData = data.value;
-             }
-             else if(data.sensor == 'leftForce') {
-               leftForceData = data.value;
-             }
-             else if(data.sensor == 'rightForce') {
-               rightForceData = data.value;
-             }
-           }
+// socket.onmessage = function(event) {
+//   var data = JSON.parse(event.data); //data.<dictionary key>
+  
+//   if(data.sensor == 'topForce') {
+//     topForceData = data.value;
+//     sessionStorage.setItem("finalTopForceVal", topForceData);
+//   }
+//   else if (data.sensor == 'bottomForce') {
+//     bottomForceData = data.value;
+//     sessionStorage.setItem("finalBottomForceVal", bottomForceData);
+//   }
+//   else if (data.sensor == 'leftForce') {
+//     leftForceData = data.value;
+//     sessionStorage.setItem("finalLeftForceVal", leftForceData);
+//   }
+//   else if (data.sensor == 'rightForce') {
+//     rightForceData = data.value;
+//     sessionStorage.setItem("finalRightForceVal", rightForceData);
+//   }
+// }
         
-
-  var a1 = function(p) {
+// top force sensor
+var topForce = function(p) {
     p.setup = function() {
        let canvas1 = p.createCanvas(400, 200); 
        var x = (p.windowWidth - p.width) / 2;  
-       canvas1.position(x, 0); 
+       var y = 0;
+       canvas1.position(x, y);
     }
 
    p.draw = function() {
       p.background(255);     
       // Use color() function
-      var c = p.color('green');
-      if (topForceData < 5) {
-        c = p.color('green');
+      var c = p.color('gold');
+      if (topForceData < 7) {
+        c = p.color('gold');
+      }
+      else if (topForceData > 10) {
+        c = p.color('red');
       }
       else {
-        c = p.color('red');
+        c = p.color('LimeGreen');
       }
 
       // Use fill() function to fill color
@@ -160,25 +126,29 @@ var rightForceData;
       p.circle(200, 100, 100); 
     }
 }
-var myp5_1 = new p5(a1);
+var myTopForce = new p5(topForce);
 
-
-var a2 = function(p) {
+// bottom force sensor
+var bottomForce = function(p) {
     p.setup = function() {
        let canvas2 = p.createCanvas(400, 200); 
-       var x = (p.windowWidth - p.width) / 2;  
-       canvas2.position(x, 600);  
+       var x = (p.windowWidth - p.width) / 2;
+       var y = (p.windowHeight - p.height); 
+       canvas2.position(x, y);
     }
 
    p.draw = function() {
       p.background(255);     
       // Use color() function
-      var c = p.color('green');
-      if (bottomForceData < 5) {
-        c = p.color('green');
+      var c = p.color('gold');
+      if (bottomForceData < 7) {
+        c = p.color('gold');
+      }
+      else if (bottomForceData > 10) {
+        c = p.color('red');
       }
       else {
-        c = p.color('red');
+        c = p.color('LimeGreen');
       }
 
       // Use fill() function to fill color
@@ -188,24 +158,29 @@ var a2 = function(p) {
       p.circle(200, 100, 100); 
     }
 }
-var myp5_2 = new p5(a2);
+var myBottomForce = new p5(bottomForce);
 
-var a3 = function(p) {
+// left force sensor
+var leftForce = function(p) {
     p.setup = function() {
-       let canvas3 = p.createCanvas(200, 200); 
-       var y = (p.windowHeight - p.Height);  
-       canvas3.position(0, 300);  
+       let canvas3 = p.createCanvas(200, 200);
+       var x = 0; 
+       var y = (p.windowHeight - p.height)/2;  
+       canvas3.position(x, y);  
     }
 
    p.draw = function() {
       p.background(255);     
       // Use color() function
-      var c = p.color('green');
-      if (rightForceData < 5) {
-        c = p.color('green');
+      var c = p.color('LimeGreen');
+      if (leftForceData < 7) {
+        c = p.color('gold');
+      }
+      else if (leftForceData > 10) {
+        c = p.color('red')
       }
       else {
-        c = p.color('red');
+        c = p.color('LimeGreen');
       }
 
       // Use fill() function to fill color
@@ -215,25 +190,30 @@ var a3 = function(p) {
       p.circle(100, 100, 100); 
     }
 }
-var myp5_3 = new p5(a3);
+var myLeftForce = new p5(leftForce);
   
 
-var a4 = function(p) {
+// right force sensor
+var rightForce = function(p) {
     p.setup = function() {
        let canvas4 = p.createCanvas(200, 200); 
-       var y = (p.windowHeight - p.Height);  
-       canvas4.position(1200, 300);  
+       var x = p.windowWidth-p.width;
+       var y = (p.windowHeight - p.height)/2;  
+       canvas4.position(x, y);
     }
 
-   p.draw = function() {
+    p.draw = function() {
       p.background(255);     
       // Use color() function
-      var c = p.color('green');
-      if (leftForceData < 5) {
-        c = p.color('green');
+      var c = p.color('LimeGreen');
+      if (rightForceData < 7) {
+        c = p.color('gold');
+      }
+      else if (rightForceData > 10) {
+        c = p.color('red');
       }
       else {
-        c = p.color('red');
+        c = p.color('LimeGreen');
       }
 
       // Use fill() function to fill color
@@ -243,13 +223,12 @@ var a4 = function(p) {
       p.circle(100, 100, 100); 
     }
 }
-var myp5_4 = new p5(a4);
+var myRightForce = new p5(rightForce);
+
+
+
   
-
 </script>
-
- 
-    </body>
-    
+</body>
 </html>
 
