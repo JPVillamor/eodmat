@@ -782,7 +782,7 @@ function updateThreshold() {
             else if (data.sensor == 'leftForce') {
                 document.querySelector('#leftForce').innerText = "\xa0\xa0\xa0\xa0 Left: " + (data.value-prevLeftForceVal).toFixed(2) + " N";
                 
-                myDataLeftForce.push(data.value-prevLeftForceVal);
+                myDataLeftForce.push((data.value-prevLeftForceVal).toFixed(2));
                 //time_axis.push(time_counter++);
                 myChartForceBar.data.labels.pop(); // added to make bar graph
                 myChartForceBar.data.labels.push(time_counter.toString());
@@ -806,7 +806,7 @@ function updateThreshold() {
                 
                 document.querySelector('#rightForce').innerText = "\xa0\xa0\xa0\xa0 Right: " + (data.value-prevRightForceVal).toFixed(2) + " N";
                 
-                myDataRightForce.push(data.value-prevRightForceVal);
+                myDataRightForce.push((data.value-prevRightForceVal).toFixed(2));
                 //time_axis.push(time_counter++);
                 myChartForceBar.data.labels.pop(); // added to make bar graph
                 myChartForceBar.data.labels.push(time_counter.toString());
@@ -828,7 +828,7 @@ function updateThreshold() {
             else if (data.sensor == 'topForce') {
                 document.querySelector('#topForce').innerText = "\xa0\xa0\xa0\xa0 Top: " + (data.value-prevTopForceVal).toFixed(2) + " N";
                 
-                myDataTopForce.push(data.value-prevTopForceVal);
+                myDataTopForce.push((data.value-prevTopForceVal).toFixed(2));
                 //time_axis.push(time_counter++);
                 myChartForceBar.data.labels.pop(); // added to make bar graph
                 myChartForceBar.data.labels.push(time_counter.toString());
@@ -851,7 +851,7 @@ function updateThreshold() {
             else if (data.sensor == 'bottomForce') {
                 document.querySelector('#bottomForce').innerText = "\xa0\xa0\xa0\xa0 Bottom: " + (data.value-prevBottomForceVal).toFixed(2) + " N";
                 
-                myDataBottomForce.push(data.value-prevBottomForceVal);
+                myDataBottomForce.push((data.value-prevBottomForceVal).toFixed(2));
                 
                 myChartForceBar.data.labels.pop(); // added to make bar graph
                 myChartForceBar.data.labels.push(time_counter.toString());
