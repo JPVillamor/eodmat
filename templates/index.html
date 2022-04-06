@@ -296,8 +296,8 @@ function updateThreshold() {
                         annotations: {
                             line1: {
                             type: 'line',
-                            yMin: 60,
-                            yMax: 60,
+                            yMin: 10,
+                            yMax: 10,
                             borderColor: 'rgb(245, 66, 66)',
                             borderWidth: 4,
                             }
@@ -307,8 +307,8 @@ function updateThreshold() {
                 responsive: false,
                 scales: {
                     y: {
-                        suggestedMin: 0,
-                        suggestedMax: 100
+                        suggestedMin: -15,
+                        suggestedMax: 15
                     }
                 }
 
@@ -339,8 +339,8 @@ function updateThreshold() {
                         annotations: {
                             line1: {
                             type: 'line',
-                            yMin: 60,
-                            yMax: 60,
+                            yMin: 30,
+                            yMax: 30,
                             borderColor: 'rgb(245, 66, 66)',
                             borderWidth: 4,
                             }
@@ -350,8 +350,8 @@ function updateThreshold() {
                 responsive: false,
                 scales: {
                     y: {
-                        suggestedMin: 0,
-                        suggestedMax: 100
+                        suggestedMin: 10,
+                        suggestedMax: 50
                     }
                 }
             }
@@ -382,8 +382,8 @@ function updateThreshold() {
                         annotations: {
                             line1: {
                             type: 'line',
-                            yMin: 40,
-                            yMax: 40,
+                            yMin: 1,
+                            yMax: 1,
                             borderColor: 'rgb(245, 66, 66)',
                             borderWidth: 4,
                             }
@@ -393,8 +393,8 @@ function updateThreshold() {
                 responsive: false,
                 scales: {
                     y: {
-                        suggestedMin: 0,
-                        suggestedMax: 50
+                        min: 0,
+                        suggestedMax: 2
                     }
                 }
             }
@@ -458,7 +458,7 @@ function updateThreshold() {
                 responsive: false,
                 scales: {
                     y: {
-                        suggestedMin: 0,
+                        min: 0,
                         suggestedMax: 30
                     }
                 }
@@ -574,8 +574,8 @@ function updateThreshold() {
                         annotations: {
                             line1: {
                             type: 'line',
-                            yMin: 40,
-                            yMax: 40,
+                            yMin: 1,
+                            yMax: 1,
                             borderColor: 'rgb(245, 66, 66)',
                             borderWidth: 4,
                             }
@@ -584,8 +584,8 @@ function updateThreshold() {
                 },
                 scales: {
                     y: {
-                        suggestedMin: 1,
-                        suggestedMax: 100
+                        suggestedMin: 0,
+                        suggestedMax: 2
                     }
                 }
             }
@@ -614,8 +614,8 @@ function updateThreshold() {
                         annotations: {
                             line1: {
                             type: 'line',
-                            yMin: 40,
-                            yMax: 40,
+                            yMin: 1,
+                            yMax: 1,
                             borderColor: 'rgb(245, 66, 66)',
                             borderWidth: 4,
                             }
@@ -624,8 +624,8 @@ function updateThreshold() {
                 },
                 scales: {
                     y: {
-                        suggestedMin: 1,
-                        suggestedMax: 100
+                        suggestedMin: 0,
+                        suggestedMax: 2
                     }
                 }
             }
@@ -780,7 +780,7 @@ function updateThreshold() {
             
             
             else if (data.sensor == 'leftForce') {
-                document.querySelector('#leftForce').innerText = "\xa0\xa0\xa0\xa0 Left: " + (data.value-prevLeftForceVal) + " N";
+                document.querySelector('#leftForce').innerText = "\xa0\xa0\xa0\xa0 Left: " + (data.value-prevLeftForceVal).toFixed(2) + " N";
                 
                 myDataLeftForce.push(data.value-prevLeftForceVal);
                 //time_axis.push(time_counter++);
@@ -804,7 +804,7 @@ function updateThreshold() {
             }
             else if (data.sensor == 'rightForce') {
                 
-                document.querySelector('#rightForce').innerText = "\xa0\xa0\xa0\xa0 Right: " + (data.value-prevRightForceVal) + " N";
+                document.querySelector('#rightForce').innerText = "\xa0\xa0\xa0\xa0 Right: " + (data.value-prevRightForceVal).toFixed(2) + " N";
                 
                 myDataRightForce.push(data.value-prevRightForceVal);
                 //time_axis.push(time_counter++);
@@ -826,7 +826,7 @@ function updateThreshold() {
                 maxForceArr.push(data.value-prevRightForceVal);
             }
             else if (data.sensor == 'topForce') {
-                document.querySelector('#topForce').innerText = "\xa0\xa0\xa0\xa0 Top: " + (data.value-prevTopForceVal) + " N";
+                document.querySelector('#topForce').innerText = "\xa0\xa0\xa0\xa0 Top: " + (data.value-prevTopForceVal).toFixed(2) + " N";
                 
                 myDataTopForce.push(data.value-prevTopForceVal);
                 //time_axis.push(time_counter++);
@@ -849,7 +849,7 @@ function updateThreshold() {
                 maxForceArr.push(data.value-prevTopForceVal);
             }
             else if (data.sensor == 'bottomForce') {
-                document.querySelector('#bottomForce').innerText = "\xa0\xa0\xa0\xa0 Bottom: " + (data.value-prevBottomForceVal) + " N";
+                document.querySelector('#bottomForce').innerText = "\xa0\xa0\xa0\xa0 Bottom: " + (data.value-prevBottomForceVal).toFixed(2) + " N";
                 
                 myDataBottomForce.push(data.value-prevBottomForceVal);
                 
@@ -871,7 +871,7 @@ function updateThreshold() {
                 maxForceArr.push(data.value-prevBottomForceVal);
                 maxForceVal = Math.max( ...maxForceArr );
 
-                document.querySelector('#maxForce').innerText = "\xa0\xa0\xa0\xa0 Max Force: " + maxForceVal + " N";
+                document.querySelector('#maxForce').innerText = "\xa0\xa0\xa0\xa0 Max Force: " + maxForceVal.toFixed(2) + " N";
 
                 myData.push(maxForceVal);
                 time_axis.push(time_counter);

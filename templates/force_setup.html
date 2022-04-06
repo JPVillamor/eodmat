@@ -60,15 +60,24 @@
 
 
 <script>
-// var topForceData = 10;
-// var bottomForceData = 10;
-// var leftForceData = 10;
-// var rightForceData = 10;
+// var topForceData = 10.12321;
+// var bottomForceData = 10.2331122;
+// var leftForceData = 10.12321132;
+// var rightForceData = 10.1212321;
 
 // sessionStorage.setItem("finalTopForceVal", topForceData);
 // sessionStorage.setItem("finalBottomForceVal", bottomForceData);
 // sessionStorage.setItem("finalLeftForceVal", leftForceData);
 // sessionStorage.setItem("finalRightForceVal", rightForceData);
+
+var username = sessionStorage.getItem("USERNAME");
+console.log(username);
+
+var tool = sessionStorage.getItem("TOOL");
+console.log(tool);
+
+var mat = sessionStorage.getItem("MAT");
+console.log(mat);
 
 var topForceData;
 var bottomForceData;
@@ -76,7 +85,7 @@ var leftForceData;
 var rightForceData;
 
 const socket = new WebSocket (
-    'ws://' + window.location.host + '/ws/matserver/'
+    'ws://' + window.location.host + '/ws/matserver/' // FIX TO CORRECT THING
 );
 
 socket.onmessage = function(event) {
@@ -229,6 +238,9 @@ var rightForce = function(p) {
 }
 var myRightForce = new p5(rightForce);
 
+
+
+  
 </script>
 </body>
 </html>

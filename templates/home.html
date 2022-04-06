@@ -1,139 +1,85 @@
 <!DOCTYPE html>
 {% load static %}
 <html>
-    <head>
-    <title>MAT App</title>
+  <head>
+  <title>MAT App</title>
 
 	<style>
 		h1 {text-align: center;}
-        p {text-align: center;}
+    p {text-align: center;}
 	</style>
 	<h1>Welcome to the EOD MAT Trainer</h1>
 	
-  <p>Please enter your name</p>
-	<div id="myDIV" style="text-align:center;">
-	<form action="/action_page.php">
-		<label for="fname">First name:</label>
-		<input type="text" id="fname" name="fname"><br><br>
-		<label for="lname">Last name:</label>
-		<input type="text" id="lname" name="lname"><br><br>
-	  </form>
-	  
-	</div>
-
-  <!-- Define button style -->
+  <p>Please enter name, tool, and material</p>
 
   <style>
     button {
     padding: 10px 20px;
+    cursor: pointer;
     margin: 5px;
-    background-color: gray;
+    background-color: green;
     color: #fff;
     border: none;    
     outline: none;
     border-radius: 5px;
   }
-
-    .button {
-    border: none;
-    color: white;
-    padding: 16px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    margin:0 auto;
-  }
-
-  .button1 {
-    background-color: white; 
-    color: black; 
-    border: 2px solid #008CBA;
-  }
-  
-  .button1:hover {
-    background-color: #008CBA;
-    color: white;
-  }
-
   </style>
-    
-        <!-- <div style="text-align:center;">
-            <button class="button button1" onclick="myFunction1()">Trainer</button>
-            <button class="button button1" onclick="myFunction1()">Solo</button>
-        </div> -->
         
 <div id="myDIV" style="text-align:center;">
-  <br><br>
-  <form action="/action_page.php">
-    <label for="cars">Select your material:</label>
-    <select name="cars" id="cars">
-      <option value="mat1">Aluminum</option>
-      <option value="mat2">Tile</option>
-      <option value="mat3">Steel</option>
-      <option value="mat4">Wood</option>
-    </select>
-    <br><br>
-  </form>
-
-  <form action="/action_page.php">
-    <label for="cars">Select your tool:</label>
-    <select name="cars" id="cars">
-      <option value="tool1">Angle Grinder</option>
-      <option value="tool2">Drill Driver</option>
-      <option value="tool3">Manual Driver</option>
-      <option value="tool4">Saw</option>
-      <option value="tool5">Hot Knife</option>
-    </select>
-    <br><br>
-  </form>
-
-    <!-- <button id="view_all">View All</button>
-    <button id="force">Force</button>
-    <button id="temperature">Temperature</button>
-    
-    <br>
-    <button id="sound">Sound</button>
-    <button id="vibration">Vibration</button>
-    <button id="light">Light</button>
-    <br><br><br><br> -->
-
-    <form action="{% url 'force_setup'%}">
-      <button type="submit">Start</button>
-      </form>
+    <p>Username:
+    <input id="userNameVal" type="text" placeholder="Username">
+    </p>
 </div>
+
+<div id="myDIV" style="text-align:center;">
+  <p>Tool:
+  <input id="toolVal" type="text" placeholder="Tool">
+  </p>
+</div>
+
+<div id="myDIV" style="text-align:center;">
+  <p>Material:
+  <input id="matVal" type="text" placeholder="Barrier Material">
+  </p>
+</div>
+
+<div id="myDIV" style="text-align:center;">
+  <button id="submitNames" onclick="returnText()">Save Input</button>
+</div>
+
+<div div id="myDIV" style="text-align:center;">
+  <form action="{% url 'force_setup'%}">
+    <button id="nextPage" type="submit">Start</button>
+  </form>
+</div>
+
+<script>
+  submitNames.style.backgroundColor = 'gray';
+  nextPage.style.backgroundColor = 'gray';
+</script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Document</title>
 
-    
-    </head>
-    <body>
+<script>
+var input;
+function returnText(){
+    usernameValInput = document.getElementById("userNameVal").value;
+    toolValInput = document.getElementById("toolVal").value;
+    matValInput = document.getElementById("matVal").value;
+    console.log(usernameValInput);
+    console.log(toolValInput);
+    console.log(matValInput);
+    sessionStorage.setItem("USERNAME", usernameValInput);
+    sessionStorage.setItem("TOOL", toolValInput);
+    sessionStorage.setItem("MAT", matValInput);
+    submitNames.style.backgroundColor = 'green';
+    nextPage.style.backgroundColor = 'green';
+}
 
-    <!-- <script>
-        var x = document.getElementById("myDIV");
-        x.style.display = "none"
-        function myFunction1() {
-          
-          if (x.style.display === "none") {
-            x.style.display = "block";
-          } else {
-            x.style.display = "none";
-          }
-        }
-        function next(){
-          var a = document.getElementById("mylink")
-        }
-    </script> -->
+</script>
 
-  <script src="{% static 'script.js' %}"></script>
-    </body>
+</head>
 </html>
-
-
-
