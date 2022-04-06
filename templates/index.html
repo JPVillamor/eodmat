@@ -1,48 +1,44 @@
 <!DOCTYPE html> 
 {% load static %}
 <html lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <script src="{% static 'chart.js' %}"></script>
+    <script src="{% static 'chartjs-plugin-annotation.js' %}"></script>
+    <script src="{% static 'p5.js' %}"></script>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1"> 
-        <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
-        <script src="{% static 'chart.js' %}"></script>
-        <script src="{% static 'chartjs-plugin-annotation.js' %}"></script>
-        <script src="{% static 'script.js' %}"></script>
-        <script src="{% static 'p5.js' %}"></script>
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script> -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <meta http-equiv="content-type" content="text/javascript; charset=UTF-8">
-        <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
         rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
         crossorigin="anonymous">
-        <title>MAT</title>
+        <title>Real-Time app with Django Channels</title>
+  
+
     </head>
     <style>
-    h4
-    {
+    h4 {
         display: inline-block;
         text-align: center;
         
     }
 
     button {
-    padding: 10px 20px;
-    margin: 5px;
-    background-color: gray;
-    color: #fff;
-    border: none;    
-    outline: none;
-    border-radius: 5px;
-  }
+        padding: 10px 20px;
+        margin: 5px;
+        background-color: gray;
+        color: #fff;
+        border: none;    
+        outline: none;
+        border-radius: 5px;
+     }
 
     </style>
 
     <body>
-        <form action="/exportcsv" style="margin: auto; width: 220px;">
-            <button style="background-color: red" id="export" type="submit" >Stop and Export CSV</button>
-        </form>
+        <!-- <form action="/exportcsv" style="margin: auto; width: 220px;"> -->
+            <button style="background-color: red" id="export" type="submit" onclick="exportCSVFile()" >Stop and Export CSV</button>
+        <!-- </form> -->
 
         <div class="container">
             <div class="row">
@@ -85,47 +81,78 @@
                 </div>
                 
                     <script>
-                        PhotoDiodeButton.style.backgroundColor = 'green'
-                        IRCameraButton.style.backgroundColor = 'green'
-                        MaxForceButton.style.backgroundColor = 'green'
+                        PhotoDiodeButton.style.backgroundColor = 'rgb(235, 168, 52)'
+                        IRCameraButton.style.backgroundColor = 'blue'
+                        MaxForceButton.style.backgroundColor = 'rgb(125, 172, 149)'
                         PhotoResistorButton.style.backgroundColor = 'green'
-                        ForceBarsButton.style.backgroundColor = 'green'
-                        AccelerometerButton.style.backgroundColor = 'green'
-                        TemperatureButton.style.backgroundColor = 'green'
-                        SoundButton.style.backgroundColor = 'green'
-                        PIRButton.style.backgroundColor = 'green'
+                        ForceBarsButton.style.backgroundColor = 'rgb(121, 91, 171)'
+                        AccelerometerButton.style.backgroundColor = 'rgb(219, 206, 141)'
+                        TemperatureButton.style.backgroundColor = 'rgb(255, 99, 132)'
+                        SoundButton.style.backgroundColor = 'rgb(140, 163, 219)'
+                        PIRButton.style.backgroundColor = 'rgb(157, 174, 117)'
 
                     </script>
 
-                <style>
+                <!-- <style>
                     #ACC {
-                        border: thick solid green;
+                        border: thick solid rgb(219, 206, 141);
                     }
                     #TEMP {
-                        border: thick solid green;
+                        border: thick solid rgb(255, 99, 132);
                     }
                     #FORCEBAR {
-                        border: thick solid green;
+                        border: thick solid rgb(121, 91, 171);
                     }
                     #MAXFORCE {
-                        border: thick solid green;
+                        border: thick solid rgb(125, 172, 149);
                     }
                     #PHOTODIODE {
-                        border: thick solid green;
+                        border: thick solid rgb(235, 168, 52);
                     }
                     #PHOTORESISTOR {
-                        border: thick solid green;
+                        border: thick solid rgb(35, 138, 52);
                     }
                     #PIR {
-                        border: thick solid green;
+                        border: thick solid rgb(157, 174, 117);
                     }
                     #SOUND {
-                        border: thick solid green;
+                        border: thick solid rgb(140, 163, 219);
+                    }
+
+                </style> -->
+
+
+                <style>
+                    #ACC {
+                        border: thick solid black;
+                    }
+                    #TEMP {
+                        border: thick solid black;
+                    }
+                    #FORCEBAR {
+                        border: thick solid black;
+                    }
+                    #MAXFORCE {
+                        border: thick solid black;
+                    }
+                    #PHOTODIODE {
+                        border: thick solid black;
+                    }
+                    #PHOTORESISTOR {
+                        border: thick solid black;
+                    }
+                    #PIR {
+                        border: thick solid black;
+                    }
+                    #SOUND {
+                        border: thick solid black;
                     }
 
                 </style>
+
+
                  <div> 
-                    
+
                     <div id="ACC" style="display: inline-block">
                         <canvas id="myChartAcc" width="500px" height="200px"></canvas>
                            
@@ -133,21 +160,20 @@
                         <p1 id="accy">{{ text }}</p1>
                         <p1 id="accz">{{ text }}</p1>
                     </div>
-                    
 
                 
                     <div id="TEMP" style="display: inline-block">
                         <canvas id="myChartTemp" width="500px" height="200px"></canvas>
                         <p1 id="temp">{{ text }}</p1>
-                    </div> 
+                    </div>
                     
                     
-                    <!-- <div id="SOUND" style="display: inline-block">
+                    <div id="SOUND" style="display: inline-block">
                         <canvas id="myChartSound" width="500px" height="200px"></canvas>
                         <p1 id="sound">{{ text }}</p1>
-                    </div> -->
+                    </div>
 
-                     <div id="FORCEBAR" style="display: inline-block">
+                    <div id="FORCEBAR" style="display: inline-block">
                         <canvas id="myChartForceBar" width="500px" height="200px"></canvas>
                         <p1 id="leftForce">{{ text }}</p1>
                         <p1 id="rightForce">{{ text }}</p1>
@@ -159,14 +185,14 @@
                         <canvas id="myChartForceMaxLine" width="500px" height="200px"></canvas>
                         <p1 id="maxForce">{{ text }}</p1>
                     </div>
-<!-- 
+
                     <div id="PIR" style="display: inline-block">
                         <canvas id="myChartPIR" width="500px" height="200px"></canvas>
                         <p1 id="pir">{{ text }}</p1>
                     </div>
-                    -->
+
                     
-                    <!-- <div id="PHOTODIODE" style="display: inline-block">
+                    <div id="PHOTODIODE" style="display: inline-block">
                         <canvas id="myChartPhotoDiode" width="500px" height="200px"></canvas>
                         <p1 id="photoDiode">{{ text }}</p1>
                     </div>
@@ -174,61 +200,90 @@
                     <div id="PHOTORESISTOR" style="display: inline-block">
                         <canvas id="myChartPhotoResistor" width="500px" height="200px"></canvas>
                         <p1 id="photoResistor">{{ text }}</p1>
-                    </div> -->
+                    </div>
 
                 </div>
             </div>
         </div>
     <script>
-        
-        //var socket = new WebSocket('ws://localhost:8000/ws/some_url/');
-        const socket = new WebSocket (
-            'ws://' +
-            window.location.host +
-            '/ws/matserver/'
-        );
-        const myData = [];
-        const myDataTemp = [];
-        const myDataSound = [];
-        const myDataX = [];
-        const myDataY = [];
-        const myDataZ = [];
-        const myDataPIR = [];
-        const myDataPhotoDiode = [];
-        const myDataPhotoResistor = [];
-        var IRCameraData = [];
-        
-        var time_counter = 0;
-        const time_axis = [];
 
+// update threshold lines
+function updateThreshold() {
+            var x = document.getElementById("thresholdForm");
+            if (x.elements[0].value != '') {
+                myChartForceMaxLine.options.plugins.annotation.annotations.line1.yMax = x.elements[0].value;
+                myChartForceMaxLine.options.plugins.annotation.annotations.line1.yMin = x.elements[0].value;
+                myChartForceBar.options.plugins.annotation.annotations.line1.yMax = x.elements[0].value;
+                myChartForceBar.options.plugins.annotation.annotations.line1.yMin = x.elements[0].value;
+                myChartForceMaxLine.update();
+                myChartForceBar.update();
+            }
+
+            if (x.elements[1].value != '') {
+                myChartAcc.options.plugins.annotation.annotations.line1.yMax = x.elements[1].value;
+                myChartAcc.options.plugins.annotation.annotations.line1.yMin = x.elements[1].value;
+                myChartAcc.update();
+            }
+
+            if (x.elements[2].value != '') {
+                myChartPIR.options.plugins.annotation.annotations.line1.yMax = x.elements[2].value;
+                myChartPIR.options.plugins.annotation.annotations.line1.yMin = x.elements[2].value;
+                myChartPIR.update();
+            }
+
+            if (x.elements[3].value != '') {
+                myChartPhotoDiode.options.plugins.annotation.annotations.line1.yMax = x.elements[3].value;
+                myChartPhotoDiode.options.plugins.annotation.annotations.line1.yMin = x.elements[3].value;
+                myChartPhotoDiode.update();
+            }
+
+            if (x.elements[4].value != '') {
+                myChartPhotoResistor.options.plugins.annotation.annotations.line1.yMax = x.elements[4].value;
+                myChartPhotoResistor.options.plugins.annotation.annotations.line1.yMin = x.elements[4].value;
+                myChartPhotoResistor.update();
+            }
+
+            if (x.elements[5].value != '') {
+                myChartTemp.options.plugins.annotation.annotations.line1.yMax = x.elements[5].value;
+                myChartTemp.options.plugins.annotation.annotations.line1.yMin = x.elements[5].value;
+                myChartTemp.update();
+            }
+
+            if (x.elements[6].value != '') {
+                myChartSound.options.plugins.annotation.annotations.line1.yMax = x.elements[6].value;
+                myChartSound.options.plugins.annotation.annotations.line1.yMin = x.elements[6].value;
+                myChartSound.update();
+            }
+        }
+
+
+        
         const ctx = document.getElementById('myChartAcc');
 
-
-        
         const myChartAcc = new Chart(ctx, {
             type: 'bar', // added to make bar graph
             //type: 'line', // removed to make bar graph
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Sensor Data x',
+                    label: 'ACC X',
                     data: [],
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgb(219, 206, 141)',
+                    borderColor: 'rgb(219, 206, 141)',
                     borderWidth: 1
                 },
                 {
-                    label: 'Sensor Data y',
+                    label: 'ACC Y',
                     data: [],
-                    backgroundColor: 'rgb(25, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgb(153, 220, 211)',
+                    borderColor: 'rgb(153, 220, 211)',
                     borderWidth: 1
                 },
                 {
-                    label: 'Sensor Data z',
+                    label: 'ACC Z',
                     data: [],
-                    backgroundColor: 'rgb(245, 199, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgb(200, 138, 219)',
+                    borderColor: 'rgb(200, 138, 219)',
                     borderWidth: 1
                 },
             ]
@@ -253,14 +308,12 @@
                 scales: {
                     y: {
                         suggestedMin: 0,
-                        suggestedMax: 20
+                        suggestedMax: 100
                     }
                 }
 
             }            
         });
-        
-    
 
         const ctx2 = document.getElementById('myChartTemp');
         const myChartTemp = new Chart(ctx2, {
@@ -305,7 +358,7 @@
         });
 
         
-        /*
+        
         const ctx3 = document.getElementById('myChartSound');
         const myChartSound = new Chart(ctx3, {
             type: 'line', // removed to make bar graph
@@ -315,8 +368,8 @@
                     label: 'Sound',
                     tension: 0.3,
                     data: [],
-                    backgroundColor: 'rgb(235, 168, 52)',
-                    borderColor: 'rgb(235, 168, 52)',
+                    backgroundColor: 'rgb(140, 163, 219)',
+                    borderColor: 'rgb(140, 163, 219)',
                     borderWidth: 1
                 }
             ]
@@ -346,8 +399,7 @@
                 }
             }
         });
-        */
-
+        
 
         const ctx4 = document.getElementById('myChartForceBar');
         const myChartForceBar = new Chart(ctx4, {
@@ -358,29 +410,29 @@
                 datasets: [{
                     label: 'Left Force Sensor',
                     data: [],
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgb(121, 91, 171)',
+                    borderColor: 'rgb(121, 91, 171)',
                     borderWidth: 1
                 },
                 {
                     label: 'Right Force Sensor',
                     data: [],
-                    backgroundColor: 'rgb(25, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgb(124, 195, 230)',
+                    borderColor: 'rgb(124, 195, 230)',
                     borderWidth: 1
                 },
                 {
                     label: 'Top Force Sensor',
                     data: [],
-                    backgroundColor: 'rgb(245, 199, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgb(215, 88, 138)',
+                    borderColor: 'rgb(215, 88, 138)',
                     borderWidth: 1
                 },
                 {
                     label: 'Bottom Force Sensor',
                     data: [],
-                    backgroundColor: 'rgb(245, 199, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgb(241, 183, 72)',
+                    borderColor: 'rgb(241, 183, 72)',
                     borderWidth: 1
                 },
                 
@@ -395,8 +447,8 @@
                         annotations: {
                             line1: {
                             type: 'line',
-                            yMin: 60,
-                            yMax: 60,
+                            yMin: 15,
+                            yMax: 15,
                             borderColor: 'rgb(245, 66, 66)',
                             borderWidth: 4,
                             }
@@ -407,62 +459,12 @@
                 scales: {
                     y: {
                         suggestedMin: 0,
-                        suggestedMax: 25
+                        suggestedMax: 30
                     }
                 }
-
-
-            }            
+            }
         });
-        
-        
-        function updateThreshold() {
-            var x = document.getElementById("thresholdForm");
-            if (x.elements[0].value != '') {
-                myChartForceMaxLine.options.plugins.annotation.annotations.line1.yMax = x.elements[0].value;
-                myChartForceMaxLine.options.plugins.annotation.annotations.line1.yMin = x.elements[0].value;
-                myChartForceMaxLine.update();
-            }
-
-            if (x.elements[1].value != '') {
-                myChartAcc.options.plugins.annotation.annotations.line1.yMax = x.elements[1].value;
-                myChartAcc.options.plugins.annotation.annotations.line1.yMin = x.elements[1].value;
-                myChartAcc.update();
-            }
-
-            if (x.elements[2].value != '') {
-                myChartPIR.options.plugins.annotation.annotations.line1.yMax = x.elements[2].value;
-                myChartPIR.options.plugins.annotation.annotations.line1.yMin = x.elements[2].value;
-                myChartPIR.update();
-            }
-
-            if (x.elements[3].value != '') {
-                myChartPhotoDiode.options.plugins.annotation.annotations.line1.yMax = x.elements[3].value;
-                myChartPhotoDiode.options.plugins.annotation.annotations.line1.yMin = x.elements[3].value;
-                myChartPhotoDiode.update();
-            }
-
-            if (x.elements[4].value != '') {
-                myChartPhotoResistor.options.plugins.annotation.annotations.line1.yMax = x.elements[4].value;
-                myChartPhotoResistor.options.plugins.annotation.annotations.line1.yMin = x.elements[4].value;
-                myChartPhotoResistor.update();
-            }
-
-            if (x.elements[5].value != '') {
-                myChartTemp.options.plugins.annotation.annotations.line1.yMax = x.elements[5].value;
-                myChartTemp.options.plugins.annotation.annotations.line1.yMin = x.elements[5].value;
-                myChartTemp.update();
-            }
-
-            if (x.elements[6].value != '') {
-                myChartSound.options.plugins.annotation.annotations.line1.yMax = x.elements[6].value;
-                myChartSound.options.plugins.annotation.annotations.line1.yMin = x.elements[6].value;
-                myChartSound.update();
-            }
-
-
-        }
-
+       
 
         const ctx5 = document.getElementById('myChartForceMaxLine');
         const myChartForceMaxLine = new Chart(ctx5, {
@@ -473,8 +475,8 @@
                     label: 'Max Force Value',
                     tension: 0.3,
                     data: [],
-                    backgroundColor: 'rgb(235, 168, 52)',
-                    borderColor: 'rgb(235, 168, 52)',
+                    backgroundColor: 'rgb(125, 172, 149)',
+                    borderColor: 'rgb(125, 172, 149)',
                     borderWidth: 1
                 }
             ]
@@ -487,8 +489,8 @@
                         annotations: {
                             line1: {
                             type: 'line',
-                            yMin: 10,
-                            yMax: 10,
+                            yMin: 15,
+                            yMax: 15,
                             borderColor: 'rgb(245, 66, 66)',
                             borderWidth: 4,
                             }
@@ -498,12 +500,12 @@
                 scales: {
                     y: {
                         suggestedMin: 0,
-                        suggestedMax: 25
+                        suggestedMax: 30
                     }
                 }
             }
         });
-        /*
+        
         const ctx6 = document.getElementById('myChartPIR');
         const myChartPIR = new Chart(ctx6, {
             type: 'line', // removed to make bar graph
@@ -513,8 +515,8 @@
                     label: 'PIR',
                     tension: 0.3,
                     data: [],
-                    backgroundColor: 'rgb(235, 118, 151)',
-                    borderColor: 'rgb(235, 118, 151)',
+                    backgroundColor: 'rgb(157, 174, 117)',
+                    borderColor: 'rgb(157, 174, 117)',
                     borderWidth: 1
                 }
             ]
@@ -527,9 +529,9 @@
                         annotations: {
                             line1: {
                             type: 'line',
-                            yMin: 40,
-                            yMax: 40,
-                            borderColor: 'rgb(235, 118, 151)',
+                            yMin: 0.8,
+                            yMax: 0.8,
+                            borderColor: 'rgb(245, 66, 66)',
                             borderWidth: 4,
                             }
                         }
@@ -543,9 +545,8 @@
                 }
             }
         });
-        */
 
-        /*
+        
         const ctx7 = document.getElementById('myChartPhotoDiode');
         const myChartPhotoDiode = new Chart(ctx7, {
             type: 'line', // removed to make bar graph
@@ -564,6 +565,10 @@
             },
             options: {
                 plugins: {
+                    title: {
+                        display: true,
+                        text: 'Custom Chart Title'
+                    },
                 autocolors: false,
                     annotation: {
                         annotations: {
@@ -611,7 +616,7 @@
                             type: 'line',
                             yMin: 40,
                             yMax: 40,
-                            borderColor: 'rgb(35, 138, 52)',
+                            borderColor: 'rgb(245, 66, 66)',
                             borderWidth: 4,
                             }
                         }
@@ -625,12 +630,49 @@
                 }
             }
         });
-        */
+        
 
         var count;
         var maxForceArr = [];
         var maxForceVal;
         var displayFreq = 3;
+
+        // final value from force setup
+        var prevTopForceVal = sessionStorage.getItem("finalTopForceVal");
+        var prevBottomForceVal = sessionStorage.getItem("finalBottomForceVal");
+        var prevLeftForceVal = sessionStorage.getItem("finalLeftForceVal");
+        var prevRightForceVal = sessionStorage.getItem("finalRightForceVal");
+
+  
+        console.log(prevTopForceVal);
+        console.log(prevBottomForceVal);
+        console.log(prevLeftForceVal);
+        console.log(prevRightForceVal);
+
+        // data for graphs
+        const myData = [];
+        const myDataLeftForce = [];
+        const myDataRightForce = [];
+        const myDataTopForce = [];
+        const myDataBottomForce = [];
+        const myDataTemp = [];
+        const myDataSound = [];
+        const myDataX = [];
+        const myDataY = [];
+        const myDataZ = [];
+        const myDataPIR = [];
+        const myDataPhotoDiode = [];
+        const myDataPhotoResistor = [];
+        var IRCameraData = [];
+        
+        // time counter and x value to be displayed on graph
+        var time_counter = 0;
+        const time_axis = [];
+
+        // create websocket
+        const socket = new WebSocket (
+            'ws://' + window.location.host + '/ws/matserver/'
+        );
 
         socket.onmessage = function(event) {
             var data = JSON.parse(event.data); //data.<dictionary key>
@@ -653,9 +695,9 @@
                     dataset.data.push(myDataTemp[myDataTemp.length-1]);
                 });
                 myChartTemp.update(); // 'none' removes animations
-                console.log(myDataTemp);
+                //console.log(myDataTemp);
             }
-            /*
+            
             else if(data.sensor == 'sound') {
                 if (time_counter % displayFreq == 0) { 
                     document.querySelector('#sound').innerText = "\xa0\xa0\xa0\xa0 Sound = " + data.value + " Units"; //JSON.stringify(data);
@@ -674,10 +716,9 @@
                     dataset.data.push(myDataSound[myDataSound.length-1]);
                 });
                 myChartSound.update(); // 'none' removes animations
-                console.log(myDataSound);
+                //console.log(myDataSound);
             }
-            */
-
+            
 
             else if (data.sensor == 'accx') {
                 if (time_counter % displayFreq == 0) { 
@@ -689,13 +730,13 @@
                 myChartAcc.data.labels.push(time_counter.toString());
                 
                 myChartAcc.data.datasets.forEach((dataset) => {
-                    if (dataset.label == 'Sensor Data x') {
+                    if (dataset.label == 'ACC X') {
                         dataset.data.pop(); // added to make bar graph
                         dataset.data.push(myDataX[myDataX.length-1]);
                     }
                 });
                 
-                console.log(myDataY);
+                //console.log(myDataY);
             }
             else if (data.sensor == 'accy') {
                 if (time_counter % displayFreq == 0) { 
@@ -707,13 +748,13 @@
                 myChartAcc.data.labels.push(time_counter.toString());
     
                 myChartAcc.data.datasets.forEach((dataset) => {
-                    if (dataset.label == 'Sensor Data y') {
+                    if (dataset.label == 'ACC Y') {
                         dataset.data.pop(); // added to make bar graph
                         dataset.data.push(myDataY[myDataY.length-1]);
                     }
                 });
                 
-                console.log(myDataY);
+                //console.log(myDataY);
                 
             }
             else if (data.sensor == 'accz') {
@@ -726,22 +767,22 @@
                 
                 //time_counter++;
                 myChartAcc.data.datasets.forEach((dataset) => {
-                    if (dataset.label == 'Sensor Data z') {
+                    if (dataset.label == 'ACC Z') {
                         dataset.data.pop(); // added to make bar graph
                         dataset.data.push(myDataZ[myDataZ.length-1]);
                     }
                 });
                 
                 myChartAcc.update('none'); // 'none' removes animations
-                console.log(myDataZ);
+                //console.log(myDataZ);
                 
             }
             
             
             else if (data.sensor == 'leftForce') {
-                document.querySelector('#leftForce').innerText = "\xa0\xa0\xa0\xa0 Left: " + data.value + " N";
+                document.querySelector('#leftForce').innerText = "\xa0\xa0\xa0\xa0 Left: " + (data.value-prevLeftForceVal) + " N";
                 
-                myDataZ.push(data.value);
+                myDataLeftForce.push(data.value-prevLeftForceVal);
                 //time_axis.push(time_counter++);
                 myChartForceBar.data.labels.pop(); // added to make bar graph
                 myChartForceBar.data.labels.push(time_counter.toString());
@@ -750,22 +791,22 @@
                 myChartForceBar.data.datasets.forEach((dataset) => {
                     if (dataset.label == 'Left Force Sensor') {
                         dataset.data.pop(); // added to make bar graph
-                        dataset.data.push(myDataZ[myDataZ.length-1]);
+                        dataset.data.push(myDataLeftForce[myDataLeftForce.length-1]);
                     }
                 });
                 
 
                 myChartForceBar.update('none'); // 'none' removes animations
-                console.log(myDataZ);
+                //console.log(myDataZ);
 
                 // UPDATE ARRAY FOR MAX ARRAY VALUE
-                maxForceArr.push(data.value);
+                maxForceArr.push(data.value-prevLeftForceVal);
             }
             else if (data.sensor == 'rightForce') {
                 
-                document.querySelector('#rightForce').innerText = "\xa0\xa0\xa0\xa0 Right: " + data.value + " N";
+                document.querySelector('#rightForce').innerText = "\xa0\xa0\xa0\xa0 Right: " + (data.value-prevRightForceVal) + " N";
                 
-                myDataZ.push(data.value);
+                myDataRightForce.push(data.value-prevRightForceVal);
                 //time_axis.push(time_counter++);
                 myChartForceBar.data.labels.pop(); // added to make bar graph
                 myChartForceBar.data.labels.push(time_counter.toString());
@@ -774,21 +815,20 @@
                 myChartForceBar.data.datasets.forEach((dataset) => {
                     if (dataset.label == 'Right Force Sensor') {
                         dataset.data.pop(); // added to make bar graph
-                        dataset.data.push(myDataZ[myDataZ.length-1]);
+                        dataset.data.push(myDataRightForce[myDataRightForce.length-1]);
                     }
                 });
-                
 
                 myChartForceBar.update('none'); // 'none' removes animations
-                console.log(myDataZ);
+                //console.log(myDataZ);
 
                 // UPDATE ARRAY FOR MAX FORCE VAL
-                maxForceArr.push(data.value);
+                maxForceArr.push(data.value-prevRightForceVal);
             }
             else if (data.sensor == 'topForce') {
-                document.querySelector('#topForce').innerText = "\xa0\xa0\xa0\xa0 Top: " + data.value + " N";
+                document.querySelector('#topForce').innerText = "\xa0\xa0\xa0\xa0 Top: " + (data.value-prevTopForceVal) + " N";
                 
-                myDataZ.push(data.value);
+                myDataTopForce.push(data.value-prevTopForceVal);
                 //time_axis.push(time_counter++);
                 myChartForceBar.data.labels.pop(); // added to make bar graph
                 myChartForceBar.data.labels.push(time_counter.toString());
@@ -797,21 +837,21 @@
                 myChartForceBar.data.datasets.forEach((dataset) => {
                     if (dataset.label == 'Top Force Sensor') {
                         dataset.data.pop(); // added to make bar graph
-                        dataset.data.push(myDataZ[myDataZ.length-1]);
+                        dataset.data.push(myDataTopForce[myDataTopForce.length-1]);
                     }
                 });
                 
 
                 myChartForceBar.update('none'); // 'none' removes animations
-                console.log(myDataZ);
+                //console.log(myDataZ);
 
                 // UPDATE ARRAY FOR MAX FORCE VALUE
-                maxForceArr.push(data.value);
+                maxForceArr.push(data.value-prevTopForceVal);
             }
             else if (data.sensor == 'bottomForce') {
-                document.querySelector('#bottomForce').innerText = "\xa0\xa0\xa0\xa0 Bottom: " + data.value + " N";
+                document.querySelector('#bottomForce').innerText = "\xa0\xa0\xa0\xa0 Bottom: " + (data.value-prevBottomForceVal) + " N";
                 
-                myDataZ.push(data.value);
+                myDataBottomForce.push(data.value-prevBottomForceVal);
                 
                 myChartForceBar.data.labels.pop(); // added to make bar graph
                 myChartForceBar.data.labels.push(time_counter.toString());
@@ -819,19 +859,19 @@
                 myChartForceBar.data.datasets.forEach((dataset) => {
                     if (dataset.label == 'Bottom Force Sensor') {
                         dataset.data.pop(); // added to make bar graph
-                        dataset.data.push(myDataZ[myDataZ.length-1]);
+                        dataset.data.push(myDataBottomForce[myDataBottomForce.length-1]);
                     }
                 });
                 
 
                 myChartForceBar.update('none'); // 'none' removes animations
-                console.log(myDataZ);
+                //console.log(myDataZ);
 
                 // update MAX FORCE VALUE GRAPH
-                maxForceArr.push(data.value);
+                maxForceArr.push(data.value-prevBottomForceVal);
                 maxForceVal = Math.max( ...maxForceArr );
 
-                document.querySelector('#maxForce').innerText = "\xa0\xa0\xa0\xa0 Max Force: " + maxForceVal+ " N";
+                document.querySelector('#maxForce').innerText = "\xa0\xa0\xa0\xa0 Max Force: " + maxForceVal + " N";
 
                 myData.push(maxForceVal);
                 time_axis.push(time_counter);
@@ -849,22 +889,19 @@
                     dataset.data.push(myData[myData.length-1]);
                 });
                 myChartForceMaxLine.update(); // 'none' removes animations
-                console.log(myData);
+                //console.log(myData);
                 maxForceArr = [];
 
             }
             
             
-            /*
             else if (data.sensor == 'ircamera') {
 
                 //document.querySelector('#ir_frame').innerText = "Z: " + data.value[0] + " m/s/s";
                 IRCameraData = data.value;
                 
             }
-            */
             
-            /*
             else if (data.sensor == 'pir') {                
                 if (time_counter % displayFreq == 0) { 
                     document.querySelector('#pir').innerText = "\xa0\xa0\xa0\xa0 PIR = " + data.value + " UNITS"; //JSON.stringify(data);
@@ -882,10 +919,9 @@
                     dataset.data.push(myDataPIR[myDataPIR.length-1]);
                 });
                 myChartPIR.update(); // 'none' removes animations
-                console.log(myDataPIR);
+                //console.log(myDataPIR);
             }
-            */
-            /*
+            
             else if (data.sensor == 'photoDiode') {                
                 if (time_counter % displayFreq == 0) { 
                     document.querySelector('#photoDiode').innerText = "\xa0\xa0\xa0\xa0 Photo Diode = " + data.value + " UNITS"; //JSON.stringify(data);
@@ -903,7 +939,7 @@
                     dataset.data.push(myDataPhotoDiode[myDataPhotoDiode.length-1]);
                 });
                 myChartPhotoDiode.update(); // 'none' removes animations
-                console.log(myDataPhotoDiode);
+                //console.log(myDataPhotoDiode);
             }
             else if (data.sensor == 'photoResistor') {                
                 if (time_counter % displayFreq == 0) { 
@@ -922,10 +958,46 @@
                     dataset.data.push(myDataPhotoResistor[myDataPhotoResistor.length-1]);
                 });
                 myChartPhotoResistor.update(); // 'none' removes animations
-                console.log(myDataPhotoResistor);
+                //console.log(myDataPhotoResistor);
+
+                
             }
-            */
         }
+        // Export data as csv file
+
+        function exportCSVFile() {
+            const csvData = [];
+            var username = sessionStorage.getItem("USERNAME");
+            var tool = sessionStorage.getItem("TOOL");
+            var mat = sessionStorage.getItem("MAT");
+            var filename = username + '_' + tool + '_' + mat + '.csv';
+                for (var i = 0; i < myDataPhotoDiode.length; i++) {
+
+                    var tmpArr = [username, tool, mat, i, myDataLeftForce[i], myDataRightForce[i], myDataTopForce[i], myDataBottomForce[i], myDataTemp[i], myDataSound[i], myDataX[i], myDataY[i], myDataZ[i], myDataPIR[i], myDataPhotoDiode[i], myDataPhotoResistor[i]];
+                    csvData.push(tmpArr);
+                }
+                console.log(csvData);
+
+                // let csvContent = "data:text/csv;charset=utf-8," 
+                //     + csvData.map(e => e.join(",")).join("\n");
+
+                var csvContent = 'User,Tool,Material,Time(s),Left Force,Right Force,Top Force,Bottom Force,Temperature,Sound,X Acceleration,Y Acceleration,Z Acceleration,PIR,Photodiode,photoresistor\n'
+
+                csvData.forEach(function(row) {
+                    csvContent += row.join(',');
+                    csvContent += "\n";
+                });
+
+                console.log(csvData);
+                document.write(csvData);
+
+                var hiddenElement = document.createElement('a');
+                hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvContent);
+                hiddenElement.target = '_blank';
+                hiddenElement.download = filename;
+                hiddenElement.click();
+        }
+
     var IRCmaeraHiddenBool = 0;
     var canvas;
     function setup() {
@@ -1023,19 +1095,10 @@
           count++;
         }
       }
-      
       updatePixels();
     }
     
     </script>
-
-
-<script>
-    function myFunction() {
-        document.getElementById("demo").innerHTML = "YOU CLICKED ME!";
-    }
-</script>
-
 
 <script>
 
@@ -1046,13 +1109,12 @@
 
     const backgroundColor = PIRButton.style.backgroundColor;
 
-    if (backgroundColor === 'green') {
+    if (backgroundColor === 'rgb(157, 174, 117)') {
         PIRButton.style.backgroundColor = 'gray';
     }
     else {
-        PIRButton.style.backgroundColor = 'green'
+        PIRButton.style.backgroundColor = 'rgb(157, 174, 117)'
     }
-
 
     if (hiddenPIR) {
        canvasPIR.removeAttribute("hidden");
@@ -1064,9 +1126,6 @@
   }
 
 </script>
-
-
-
 
 <script>
 
@@ -1085,7 +1144,6 @@
     }
         
 
-
     if (hiddenPhotoResistor) {
        canvasPhotoResistor.removeAttribute("hidden");
        button.innerText = "Hide Photo Resistor";
@@ -1099,8 +1157,6 @@
 
 
 <script>
-
-
   let toggleTemperature = button => {
 
     let canvasTemp = document.getElementById("TEMP");
@@ -1108,11 +1164,11 @@
 
     const backgroundColor = TemperatureButton.style.backgroundColor;
 
-    if (backgroundColor === 'green') {
+    if (backgroundColor === 'rgb(255, 99, 132)') {
         TemperatureButton.style.backgroundColor = 'gray';
     }
     else {
-        TemperatureButton.style.backgroundColor = 'green'
+        TemperatureButton.style.backgroundColor = 'rgb(255, 99, 132)'
     }
         
 
@@ -1127,8 +1183,6 @@
 
 </script>
 
-
-
 <script>
 
   let toggleSound = button => {
@@ -1138,11 +1192,11 @@
 
     const backgroundColor = SoundButton.style.backgroundColor;
 
-    if (backgroundColor === 'green') {
+    if (backgroundColor === 'rgb(140, 163, 219)') {
         SoundButton.style.backgroundColor = 'gray';
     }
     else {
-        SoundButton.style.backgroundColor = 'green'
+        SoundButton.style.backgroundColor = 'rgb(140, 163, 219)'
     }
 
     if (hiddenSound) {
@@ -1167,11 +1221,11 @@
 
     const backgroundColor = AccelerometerButton.style.backgroundColor;
 
-    if (backgroundColor === 'green') {
+    if (backgroundColor === 'rgb(219, 206, 141)') {
         AccelerometerButton.style.backgroundColor = 'gray';
     }
     else {
-        AccelerometerButton.style.backgroundColor = 'green'
+        AccelerometerButton.style.backgroundColor = 'rgb(219, 206, 141)'
     }
 
     if (hiddenAcc) {
@@ -1186,8 +1240,6 @@
 </script>
 
 
-
-
 <script>
 
   let toggleForceBars = button => {
@@ -1197,11 +1249,11 @@
 
     const backgroundColor = ForceBarsButton.style.backgroundColor;
 
-    if (backgroundColor === 'green') {
+    if (backgroundColor === 'rgb(121, 91, 171)') {
         ForceBarsButton.style.backgroundColor = 'gray';
     }
     else {
-        ForceBarsButton.style.backgroundColor = 'green'
+        ForceBarsButton.style.backgroundColor = 'rgb(121, 91, 171)'
     }
 
     if (hiddenForceBar) {
@@ -1228,11 +1280,11 @@
 
     const backgroundColor = PhotoDiodeButton.style.backgroundColor;
 
-    if (backgroundColor === 'green') {
+    if (backgroundColor === 'rgb(235, 168, 52)') {
         PhotoDiodeButton.style.backgroundColor = 'gray';
     }
     else {
-        PhotoDiodeButton.style.backgroundColor = 'green'
+        PhotoDiodeButton.style.backgroundColor = 'rgb(235, 168, 52)'
     }
 
     if (hiddenTemp) {
@@ -1258,11 +1310,11 @@
 
     const backgroundColor = MaxForceButton.style.backgroundColor;
 
-    if (backgroundColor === 'green') {
+    if (backgroundColor === 'rgb(125, 172, 149)') {
         MaxForceButton.style.backgroundColor = 'gray';
     }
     else {
-        MaxForceButton.style.backgroundColor = 'green'
+        MaxForceButton.style.backgroundColor = 'rgb(125, 172, 149)'
     }
 
     if (hiddenMaxForce) {
@@ -1283,11 +1335,11 @@
 
     const backgroundColor = IRCameraButton.style.backgroundColor;
 
-    if (backgroundColor === 'green') {
+    if (backgroundColor === 'blue') {
         IRCameraButton.style.backgroundColor = 'gray';
     }
     else {
-        IRCameraButton.style.backgroundColor = 'green'
+        IRCameraButton.style.backgroundColor = 'blue'
     }
 
     if (IRCmaeraHiddenBool) {
@@ -1299,8 +1351,8 @@
     }
   }
 
-</script>
 
+</script>
 
     </body>
 </html>
