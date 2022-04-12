@@ -6,7 +6,7 @@ import csv
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html', context={'text': 'Hello World'})
+    return render(request, 'index.html', context={'text': ''})
 
 def home(request):
     return render(request, 'home.html')
