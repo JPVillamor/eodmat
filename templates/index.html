@@ -671,7 +671,7 @@ function updateThreshold() {
 
         // create websocket
         const socket = new WebSocket (
-            'ws://' + window.location.host + '/ws/some_url/'
+            'ws://' + window.location.host + '/ws/matserver/'
         );
 
         socket.onmessage = function(event) {
