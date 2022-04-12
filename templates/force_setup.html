@@ -32,7 +32,7 @@
 
 <style>
   .legend {
-    height: 50px;
+    height: 25px;
     width: 500px;
     margin: 20px;
     background-image: linear-gradient(to right,  gold 33%, LimeGreen 33% 67%, Red 67%);
@@ -40,16 +40,13 @@
   }
 </style>
 
-<p><br><br><br><br><br><br><br><br><br></p>
+<p><br><br><br><br><br><br><br><br><br><br></p>
 <h1>Install Barrier Material</h1>
-<p><br><br><br></p>
 
-
-<p><br></p>
 <div class="legend"></div>
 <p>Too Loose&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Good&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Too Tight</p>
 
-<p><br><br></p>
+<p><br></p>
 
 
 <form action="{% url 'index'%}">
@@ -60,15 +57,15 @@
 
 
 <script>
-// var topForceData = 10.12321;
-// var bottomForceData = 10.2331122;
-// var leftForceData = 10.12321132;
-// var rightForceData = 10.1212321;
+var topForceData = 10.12321;
+var bottomForceData = 10.2331122;
+var leftForceData = 10.12321132;
+var rightForceData = 10.1212321;
 
-// sessionStorage.setItem("finalTopForceVal", topForceData);
-// sessionStorage.setItem("finalBottomForceVal", bottomForceData);
-// sessionStorage.setItem("finalLeftForceVal", leftForceData);
-// sessionStorage.setItem("finalRightForceVal", rightForceData);
+sessionStorage.setItem("finalTopForceVal", topForceData);
+sessionStorage.setItem("finalBottomForceVal", bottomForceData);
+sessionStorage.setItem("finalLeftForceVal", leftForceData);
+sessionStorage.setItem("finalRightForceVal", rightForceData);
 
 var username = sessionStorage.getItem("USERNAME");
 console.log(username);
@@ -85,7 +82,7 @@ var leftForceData;
 var rightForceData;
 
 const socket = new WebSocket (
-    'ws://' + window.location.host + '/ws/matserver/' // FIX TO CORRECT THING
+    'ws://' + window.location.host + '/ws/some_url/' // FIX TO CORRECT THING
 );
 
 socket.onmessage = function(event) {

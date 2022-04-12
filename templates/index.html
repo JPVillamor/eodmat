@@ -154,7 +154,7 @@
                  <div> 
 
                     <div id="ACC" style="display: inline-block">
-                        <canvas id="myChartAcc" width="500px" height="200px"></canvas>
+                        <canvas id="myChartAcc" width="400px" height="200px"></canvas>
                            
                         <p1 id="accx">{{ text }}</p1>
                         <p1 id="accy">{{ text }}</p1>
@@ -163,18 +163,18 @@
 
                 
                     <div id="TEMP" style="display: inline-block">
-                        <canvas id="myChartTemp" width="500px" height="200px"></canvas>
+                        <canvas id="myChartTemp" width="400px" height="200px"></canvas>
                         <p1 id="temp">{{ text }}</p1>
                     </div>
                     
                     
                     <div id="SOUND" style="display: inline-block">
-                        <canvas id="myChartSound" width="500px" height="200px"></canvas>
+                        <canvas id="myChartSound" width="400px" height="200px"></canvas>
                         <p1 id="sound">{{ text }}</p1>
                     </div>
 
                     <div id="FORCEBAR" style="display: inline-block">
-                        <canvas id="myChartForceBar" width="500px" height="200px"></canvas>
+                        <canvas id="myChartForceBar" width="400px" height="200px"></canvas>
                         <p1 id="leftForce">{{ text }}</p1>
                         <p1 id="rightForce">{{ text }}</p1>
                         <p1 id="topForce">{{ text }}</p1>
@@ -182,23 +182,23 @@
                     </div>
 
                     <div id="MAXFORCE" style="display: inline-block">
-                        <canvas id="myChartForceMaxLine" width="500px" height="200px"></canvas>
+                        <canvas id="myChartForceMaxLine" width="400px" height="200px"></canvas>
                         <p1 id="maxForce">{{ text }}</p1>
                     </div>
 
                     <div id="PIR" style="display: inline-block">
-                        <canvas id="myChartPIR" width="500px" height="200px"></canvas>
+                        <canvas id="myChartPIR" width="400px" height="200px"></canvas>
                         <p1 id="pir">{{ text }}</p1>
                     </div>
 
                     
                     <div id="PHOTODIODE" style="display: inline-block">
-                        <canvas id="myChartPhotoDiode" width="500px" height="200px"></canvas>
+                        <canvas id="myChartPhotoDiode" width="400px" height="200px"></canvas>
                         <p1 id="photoDiode">{{ text }}</p1>
                     </div>
 
                     <div id="PHOTORESISTOR" style="display: inline-block">
-                        <canvas id="myChartPhotoResistor" width="500px" height="200px"></canvas>
+                        <canvas id="myChartPhotoResistor" width="400px" height="200px"></canvas>
                         <p1 id="photoResistor">{{ text }}</p1>
                     </div>
 
@@ -671,7 +671,7 @@ function updateThreshold() {
 
         // create websocket
         const socket = new WebSocket (
-            'ws://' + window.location.host + '/ws/matserver/'
+            'ws://' + window.location.host + '/ws/some_url/'
         );
 
         socket.onmessage = function(event) {
@@ -780,7 +780,7 @@ function updateThreshold() {
             
             
             else if (data.sensor == 'leftForce') {
-                document.querySelector('#leftForce').innerText = "\xa0\xa0\xa0\xa0 Left: " + (data.value-prevLeftForceVal).toFixed(2) + " N";
+                document.querySelector('#leftForce').innerText = "\xa0\xa0\xa0\xa0 Left: " + (data.value-prevLeftForceVal).toFixed(2) + " lbs";
                 
                 myDataLeftForce.push((data.value-prevLeftForceVal).toFixed(2));
                 //time_axis.push(time_counter++);
@@ -804,7 +804,7 @@ function updateThreshold() {
             }
             else if (data.sensor == 'rightForce') {
                 
-                document.querySelector('#rightForce').innerText = "\xa0\xa0\xa0\xa0 Right: " + (data.value-prevRightForceVal).toFixed(2) + " N";
+                document.querySelector('#rightForce').innerText = "\xa0\xa0\xa0\xa0 Right: " + (data.value-prevRightForceVal).toFixed(2) + " lbs";
                 
                 myDataRightForce.push((data.value-prevRightForceVal).toFixed(2));
                 //time_axis.push(time_counter++);
@@ -826,7 +826,7 @@ function updateThreshold() {
                 maxForceArr.push(data.value-prevRightForceVal);
             }
             else if (data.sensor == 'topForce') {
-                document.querySelector('#topForce').innerText = "\xa0\xa0\xa0\xa0 Top: " + (data.value-prevTopForceVal).toFixed(2) + " N";
+                document.querySelector('#topForce').innerText = "\xa0\xa0\xa0\xa0 Top: " + (data.value-prevTopForceVal).toFixed(2) + " lbs";
                 
                 myDataTopForce.push((data.value-prevTopForceVal).toFixed(2));
                 //time_axis.push(time_counter++);
@@ -849,7 +849,7 @@ function updateThreshold() {
                 maxForceArr.push(data.value-prevTopForceVal);
             }
             else if (data.sensor == 'bottomForce') {
-                document.querySelector('#bottomForce').innerText = "\xa0\xa0\xa0\xa0 Bottom: " + (data.value-prevBottomForceVal).toFixed(2) + " N";
+                document.querySelector('#bottomForce').innerText = "\xa0\xa0\xa0\xa0 Bottom: " + (data.value-prevBottomForceVal).toFixed(2) + " lbs";
                 
                 myDataBottomForce.push((data.value-prevBottomForceVal).toFixed(2));
                 
@@ -871,7 +871,7 @@ function updateThreshold() {
                 maxForceArr.push(data.value-prevBottomForceVal);
                 maxForceVal = Math.max( ...maxForceArr );
 
-                document.querySelector('#maxForce').innerText = "\xa0\xa0\xa0\xa0 Max Force: " + maxForceVal.toFixed(2) + " N";
+                document.querySelector('#maxForce').innerText = "\xa0\xa0\xa0\xa0 Max Force: " + maxForceVal.toFixed(2) + " lbs";
 
                 myData.push(maxForceVal);
                 time_axis.push(time_counter);
