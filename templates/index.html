@@ -123,6 +123,10 @@
 
 
                 <style>
+                    .container {
+		width: 80%;
+		margin: auto;
+	}
                     #ACC {
                         border: thick solid black;
                     }
@@ -151,7 +155,7 @@
                 </style>
 
 
-                 <div> 
+                 <div class="container"> 
 
                     <div id="ACC" style="display: inline-block">
                         <canvas id="myChartAcc" width="400px" height="200px"></canvas>
@@ -222,6 +226,8 @@ function updateThreshold() {
             if (x.elements[1].value != '') {
                 myChartAcc.options.plugins.annotation.annotations.line1.yMax = x.elements[1].value;
                 myChartAcc.options.plugins.annotation.annotations.line1.yMin = x.elements[1].value;
+                myChartAcc.options.plugins.annotation.annotations.line2.yMax = -(x.elements[1].value);
+                myChartAcc.options.plugins.annotation.annotations.line2.yMin = -(x.elements[1].value);
                 myChartAcc.update();
             }
 
@@ -300,6 +306,13 @@ function updateThreshold() {
                             yMax: 10,
                             borderColor: 'rgb(245, 66, 66)',
                             borderWidth: 4,
+                            },
+                            line2: {
+                            type: 'line',
+                            yMin: -10,
+                            yMax: -10,
+                            borderColor: 'rgb(245, 66, 66)',
+                            borderWidth: 4,
                             }
                         }
                     }
@@ -307,8 +320,8 @@ function updateThreshold() {
                 responsive: false,
                 scales: {
                     y: {
-                        suggestedMin: -15,
-                        suggestedMax: 15
+                        suggestedMin: -20,
+                        suggestedMax: 20
                     }
                 }
 
@@ -565,10 +578,6 @@ function updateThreshold() {
             },
             options: {
                 plugins: {
-                    title: {
-                        display: true,
-                        text: 'Custom Chart Title'
-                    },
                 autocolors: false,
                     annotation: {
                         annotations: {
@@ -780,7 +789,7 @@ function updateThreshold() {
             
             
             else if (data.sensor == 'leftForce') {
-                document.querySelector('#leftForce').innerText = "\xa0\xa0\xa0\xa0 Left: " + (data.value-prevLeftForceVal).toFixed(2) + " lbs";
+                document.querySelector('#leftForce').innerText = "\xa0\xa0\ L: " + (data.value-prevLeftForceVal).toFixed(2) + " lbs";
                 
                 myDataLeftForce.push((data.value-prevLeftForceVal).toFixed(2));
                 //time_axis.push(time_counter++);
@@ -804,7 +813,7 @@ function updateThreshold() {
             }
             else if (data.sensor == 'rightForce') {
                 
-                document.querySelector('#rightForce').innerText = "\xa0\xa0\xa0\xa0 Right: " + (data.value-prevRightForceVal).toFixed(2) + " lbs";
+                document.querySelector('#rightForce').innerText = "\xa0\xa0 R: " + (data.value-prevRightForceVal).toFixed(2) + " lbs";
                 
                 myDataRightForce.push((data.value-prevRightForceVal).toFixed(2));
                 //time_axis.push(time_counter++);
@@ -826,7 +835,7 @@ function updateThreshold() {
                 maxForceArr.push(data.value-prevRightForceVal);
             }
             else if (data.sensor == 'topForce') {
-                document.querySelector('#topForce').innerText = "\xa0\xa0\xa0\xa0 Top: " + (data.value-prevTopForceVal).toFixed(2) + " lbs";
+                document.querySelector('#topForce').innerText = "\xa0\xa0\ T: " + (data.value-prevTopForceVal).toFixed(2) + " lbs";
                 
                 myDataTopForce.push((data.value-prevTopForceVal).toFixed(2));
                 //time_axis.push(time_counter++);
@@ -849,7 +858,7 @@ function updateThreshold() {
                 maxForceArr.push(data.value-prevTopForceVal);
             }
             else if (data.sensor == 'bottomForce') {
-                document.querySelector('#bottomForce').innerText = "\xa0\xa0\xa0\xa0 Bottom: " + (data.value-prevBottomForceVal).toFixed(2) + " lbs";
+                document.querySelector('#bottomForce').innerText = "\xa0\xa0\ B: " + (data.value-prevBottomForceVal).toFixed(2) + " lbs";
                 
                 myDataBottomForce.push((data.value-prevBottomForceVal).toFixed(2));
                 
@@ -889,7 +898,7 @@ function updateThreshold() {
                     dataset.data.push(myData[myData.length-1]);
                 });
                 myChartForceMaxLine.update(); // 'none' removes animations
-                //console.log(myData);
+                //console.log(myData);fb
                 maxForceArr = [];
 
             }
@@ -904,7 +913,7 @@ function updateThreshold() {
             
             else if (data.sensor == 'pir') {                
                 if (time_counter % displayFreq == 0) { 
-                    document.querySelector('#pir').innerText = "\xa0\xa0\xa0\xa0 PIR = " + data.value + " UNITS"; //JSON.stringify(data);
+                    document.querySelector('#pir').innerText = "\xa0\xa0\xa0\xa0 PIR = " + data.value + " Units"; //JSON.stringify(data);
                 }
                 myDataPIR.push(data.value);
                 time_axis.push(time_counter);
@@ -924,7 +933,7 @@ function updateThreshold() {
             
             else if (data.sensor == 'photoDiode') {                
                 if (time_counter % displayFreq == 0) { 
-                    document.querySelector('#photoDiode').innerText = "\xa0\xa0\xa0\xa0 Photo Diode = " + data.value + " UNITS"; //JSON.stringify(data);
+                    document.querySelector('#photoDiode').innerText = "\xa0\xa0\xa0\xa0 Photo Diode = " + data.value + " Units"; //JSON.stringify(data);
                 }
                 myDataPhotoDiode.push(data.value);
                 time_axis.push(time_counter);
@@ -943,7 +952,7 @@ function updateThreshold() {
             }
             else if (data.sensor == 'photoResistor') {                
                 if (time_counter % displayFreq == 0) { 
-                    document.querySelector('#photoResistor').innerText = "\xa0\xa0\xa0\xa0 Photo Resistor = " + data.value + " UNITS"; //JSON.stringify(data);
+                    document.querySelector('#photoResistor').innerText = "\xa0\xa0\xa0\xa0 Photo Resistor = " + data.value + " Units"; //JSON.stringify(data);
                 }
                 myDataPhotoResistor.push(data.value);
                 time_axis.push(time_counter);
