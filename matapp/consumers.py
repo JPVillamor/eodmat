@@ -54,12 +54,28 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
                               'value':val #value to send function
                               }
                         )
+            elif msg_type == 'ir_data':
+                  if pause == True:
+                        pass
+                  elif pause == False:
+                        await self.channel_layer.group_send(
+                              self.groupname,
+                              {
+                              'type':'ir_graph', #function name to run
+                              'value':val #value to send function
+                              }
+                        )
+
             #timestamp = timestamp + 0.4
 
       async def frontend(self,event):
             val_list=event['value']
             for val in val_list:
                   await self.send(text_data=json.dumps(val))# send for frontend
+                  
+      async def ir_graph(self, event):
+            graph_data = event['value']
+            await self.send(text_data=json.dumps(graph_data))
 
       async def disconnect(self, close_code):
             await self.channel_layer.group_discard(
