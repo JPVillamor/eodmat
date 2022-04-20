@@ -57,8 +57,9 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
             #timestamp = timestamp + 0.4
 
       async def frontend(self,event):
-            valOther=event['value']
-            await self.send(text_data=json.dumps(valOther))# send for frontend
+            val_list=event['value']
+            for val in val_list:
+                  await self.send(text_data=json.dumps(val))# send for frontend
 
       async def disconnect(self, close_code):
             await self.channel_layer.group_discard(
