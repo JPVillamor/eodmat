@@ -703,7 +703,7 @@ function updateThreshold() {
                     
                     dataset.data.push(myDataTemp[myDataTemp.length-1]);
                 });
-                myChartTemp.update(); // 'none' removes animations
+                myChartTemp.update('none'); // 'none' removes animations
                 //console.log(myDataTemp);
             }
             
@@ -724,7 +724,7 @@ function updateThreshold() {
 
                     dataset.data.push(myDataSound[myDataSound.length-1]);
                 });
-                myChartSound.update(); // 'none' removes animations
+                myChartSound.update('none'); // 'none' removes animations
                 //console.log(myDataSound);
             }
             
@@ -744,7 +744,7 @@ function updateThreshold() {
                         dataset.data.push(myDataX[myDataX.length-1]);
                     }
                 });
-                
+                myChartAcc.update('none');
                 //console.log(myDataY);
             }
             else if (data.sensor == 'accy') {
@@ -762,6 +762,7 @@ function updateThreshold() {
                         dataset.data.push(myDataY[myDataY.length-1]);
                     }
                 });
+                myChartAcc.update('none');
                 
                 //console.log(myDataY);
                 
@@ -897,7 +898,7 @@ function updateThreshold() {
                 //   dataset.data.pop(); // added to make bar graph
                     dataset.data.push(myData[myData.length-1]);
                 });
-                myChartForceMaxLine.update(); // 'none' removes animations
+                myChartForceMaxLine.update('none'); // 'none' removes animations
                 //console.log(myData);fb
                 maxForceArr = [];
 
@@ -927,7 +928,7 @@ function updateThreshold() {
                     
                     dataset.data.push(myDataPIR[myDataPIR.length-1]);
                 });
-                myChartPIR.update(); // 'none' removes animations
+                myChartPIR.update('none'); // 'none' removes animations
                 //console.log(myDataPIR);
             }
             
@@ -947,7 +948,7 @@ function updateThreshold() {
                     
                     dataset.data.push(myDataPhotoDiode[myDataPhotoDiode.length-1]);
                 });
-                myChartPhotoDiode.update(); // 'none' removes animations
+                myChartPhotoDiode.update('none'); // 'none' removes animations
                 //console.log(myDataPhotoDiode);
             }
             else if (data.sensor == 'photoResistor') {                
@@ -966,7 +967,7 @@ function updateThreshold() {
                     
                     dataset.data.push(myDataPhotoResistor[myDataPhotoResistor.length-1]);
                 });
-                myChartPhotoResistor.update(); // 'none' removes animations
+                myChartPhotoResistor.update('none'); // 'none' removes animations
                 //console.log(myDataPhotoResistor);
 
                 
