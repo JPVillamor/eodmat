@@ -109,22 +109,23 @@ const socket = new WebSocket (
 
 socket.onmessage = function(event) {
   var data = JSON.parse(event.data); //data.<dictionary key>
-  
-  if(data.sensor == 'topForce') {
-    topForceData = data.value;
-    sessionStorage.setItem("finalTopForceVal", topForceData);
-  }
-  else if (data.sensor == 'bottomForce') {
-    bottomForceData = data.value;
-    sessionStorage.setItem("finalBottomForceVal", bottomForceData);
-  }
-  else if (data.sensor == 'leftForce') {
-    leftForceData = data.value;
-    sessionStorage.setItem("finalLeftForceVal", leftForceData);
-  }
-  else if (data.sensor == 'rightForce') {
-    rightForceData = data.value;
-    sessionStorage.setItem("finalRightForceVal", rightForceData);
+  for (let i = 0; i < data.length; i++) {
+    if(data[i].sensor == 'topForce') {
+      topForceData = data[i].value;
+      sessionStorage.setItem("finalTopForceVal", topForceData);
+    }
+    else if (data[i].sensor == 'bottomForce') {
+      bottomForceData = data[i].value;
+      sessionStorage.setItem("finalBottomForceVal", bottomForceData);
+    }
+    else if (data[i].sensor == 'leftForce') {
+      leftForceData = data[i].value;
+      sessionStorage.setItem("finalLeftForceVal", leftForceData);
+    }
+    else if (data[i].sensor == 'rightForce') {
+      rightForceData = data[i].value;
+      sessionStorage.setItem("finalRightForceVal", rightForceData);
+    }
   }
 }
         
