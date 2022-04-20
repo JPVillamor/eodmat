@@ -70,8 +70,7 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
 
       async def frontend(self,event):
             val_list=event['value']
-            for val in val_list:
-                  await self.send(text_data=json.dumps(val))# send for frontend
+            await self.send(text_data=json.dumps(val_list))# send for frontend
                   
       async def ir_graph(self, event):
             graph_data = event['value']
