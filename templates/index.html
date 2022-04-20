@@ -708,7 +708,7 @@ function updateThreshold() {
                         
                         dataset.data.push(myDataTemp[myDataTemp.length-1]);
                     });
-                    myChartTemp.update('none'); // 'none' removes animations
+                    myChartTemp.update(); // 'none' removes animations
                     //console.log(myDataTemp);
                 }       
                 else if(data[i].sensor == 'sound') {
@@ -728,7 +728,7 @@ function updateThreshold() {
 
                         dataset.data.push(myDataSound[myDataSound.length-1]);
                     });
-                    myChartSound.update('none'); // 'none' removes animations
+                    myChartSound.update(); // 'none' removes animations
                     //console.log(myDataSound);
                 }
                 else if (data[i].sensor == 'accx') {
@@ -810,7 +810,7 @@ function updateThreshold() {
                     //console.log(myDataZ);
 
                     // UPDATE ARRAY FOR MAX ARRAY VALUE
-                    maxForceArr.push(data.value-prevLeftForceVal);
+                    maxForceArr.push(data[i].value-prevLeftForceVal);
                 }
                 else if (data[i].sensor == 'rightForce') {
                     
@@ -833,7 +833,7 @@ function updateThreshold() {
                     //console.log(myDataZ);
 
                     // UPDATE ARRAY FOR MAX FORCE VAL
-                    maxForceArr.push(data.value-prevRightForceVal);
+                    maxForceArr.push(data[i].value-prevRightForceVal);
                 }
                 else if (data[i].sensor == 'topForce') {
                     document.querySelector('#topForce').innerText = "\xa0\xa0\ T: " + (data[i].value-prevTopForceVal).toFixed(2) + " lbs";
@@ -856,7 +856,7 @@ function updateThreshold() {
                     //console.log(myDataZ);
 
                     // UPDATE ARRAY FOR MAX FORCE VALUE
-                    maxForceArr.push(data.value-prevTopForceVal);
+                    maxForceArr.push(data[i].value-prevTopForceVal);
                 }
                 else if (data[i].sensor == 'bottomForce') {
                     document.querySelector('#bottomForce').innerText = "\xa0\xa0\ B: " + (data[i].value-prevBottomForceVal).toFixed(2) + " lbs";
@@ -878,7 +878,7 @@ function updateThreshold() {
                     //console.log(myDataZ);
 
                     // update MAX FORCE VALUE GRAPH
-                    maxForceArr.push(data.value-prevBottomForceVal);
+                    maxForceArr.push(data[i].value-prevBottomForceVal);
                     maxForceVal = Math.max( ...maxForceArr );
 
                     document.querySelector('#maxForce').innerText = "\xa0\xa0\xa0\xa0 Max Force: " + maxForceVal.toFixed(2) + " lbs";
@@ -898,7 +898,7 @@ function updateThreshold() {
                     //   dataset.data.pop(); // added to make bar graph
                         dataset.data.push(myData[myData.length-1]);
                     });
-                    myChartForceMaxLine.update('none'); // 'none' removes animations
+                    myChartForceMaxLine.update(); // 'none' removes animations
                     //console.log(myData);fb
                     maxForceArr = [];
 
@@ -919,7 +919,7 @@ function updateThreshold() {
                         
                         dataset.data.push(myDataPIR[myDataPIR.length-1]);
                     });
-                    myChartPIR.update('none'); // 'none' removes animations
+                    myChartPIR.update(); // 'none' removes animations
                     //console.log(myDataPIR);
                 }               
                 else if (data[i].sensor == 'photoDiode') {                
@@ -938,7 +938,7 @@ function updateThreshold() {
                         
                         dataset.data.push(myDataPhotoDiode[myDataPhotoDiode.length-1]);
                     });
-                    myChartPhotoDiode.update('none'); // 'none' removes animations
+                    myChartPhotoDiode.update(); // 'none' removes animations
                     //console.log(myDataPhotoDiode);
                 }
                 else if (data[i].sensor == 'photoResistor') {                
@@ -957,7 +957,7 @@ function updateThreshold() {
                         
                         dataset.data.push(myDataPhotoResistor[myDataPhotoResistor.length-1]);
                     });
-                    myChartPhotoResistor.update('none'); // 'none' removes animations
+                    myChartPhotoResistor.update(); // 'none' removes animations
                     //console.log(myDataPhotoResistor);
                 }
             }
