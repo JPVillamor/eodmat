@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 {% load static %}
 <html>
+  
     <head>
+
     <title>MAT App</title>
     <script src="{% static 'p5.js' %}"></script>
 
@@ -44,13 +46,13 @@
 }
 
 
-  .legend {
-    height: 25px;
-    width: 500px;
-    margin: 20px;
-    background-image: linear-gradient(to right,  gold 33%, LimeGreen 33% 67%, Red 67%);
-    margin: auto;
-  }
+.legend {
+  height: 25px;
+  width: 500px;
+  margin: 20px;
+  background-image: linear-gradient(to right,  gold 33%, LimeGreen 33% 67%, Red 67%);
+  margin: auto;
+}
 
 
 
@@ -79,15 +81,6 @@
 
 
 <script>
-// var topForceData = 10.12321;
-// var bottomForceData = 10.2331122;
-// var leftForceData = 10.12321132;
-// var rightForceData = 10.1212321;
-
-// sessionStorage.setItem("finalTopForceVal", topForceData);
-// sessionStorage.setItem("finalBottomForceVal", bottomForceData);
-// sessionStorage.setItem("finalLeftForceVal", leftForceData);
-// sessionStorage.setItem("finalRightForceVal", rightForceData);
 
 var username = sessionStorage.getItem("USERNAME");
 console.log(username);
@@ -104,7 +97,7 @@ var leftForceData;
 var rightForceData;
 
 const socket = new WebSocket (
-    'ws://' + window.location.host + '/ws/matserver/' // FIX TO CORRECT THING
+    'ws://' + window.location.host + '/ws/matserver/' 
 );
 
 socket.onmessage = function(event) {
@@ -128,8 +121,13 @@ socket.onmessage = function(event) {
     }
   }
 }
+
+
+// upper and lower limits for force sensor setup
+var upperForceLimit = 10;
+var lowerForceLimit = 6;
         
-// top force sensor
+// top force sensor 
 var topForce = function(p) {
     p.setup = function() {
        let canvas1 = p.createCanvas(400, 200); 
@@ -138,18 +136,26 @@ var topForce = function(p) {
        canvas1.position(x, y);
     }
 
+   
    p.draw = function() {
       p.background(255);     
       // Use color() function
-      var c = p.color('gold');
-      if (topForceData < 7) {
+      var c;
+      // too loose
+      if (topForceData < lowerForceLimit) {
         c = p.color('gold');
       }
-      else if (topForceData > 10) {
+      // too tight
+      else if (topForceData > upperForceLimit) {
         c = p.color('red');
       }
-      else {
+      // good
+      else if (topForceData <= upperForceLimit && topForceData >= lowerForceLimit) {
         c = p.color('LimeGreen');
+      }
+      // no data
+      else {
+        c = p.color('black');
       }
 
       // Use fill() function to fill color
@@ -173,15 +179,22 @@ var bottomForce = function(p) {
    p.draw = function() {
       p.background(255);     
       // Use color() function
-      var c = p.color('gold');
-      if (bottomForceData < 7) {
+      var c;
+      // too loose
+      if (bottomForceData < lowerForceLimit) {
         c = p.color('gold');
       }
-      else if (bottomForceData > 10) {
+      // too tight
+      else if (bottomForceData > upperForceLimit) {
         c = p.color('red');
       }
-      else {
+      // good
+      else if (bottomForceData <= upperForceLimit && bottomForceData >= lowerForceLimit) {
         c = p.color('LimeGreen');
+      }
+      // no data
+      else {
+        c = p.color('black');
       }
 
       // Use fill() function to fill color
@@ -202,18 +215,25 @@ var leftForce = function(p) {
        canvas3.position(x, y);  
     }
 
-   p.draw = function() {
+    p.draw = function() {
       p.background(255);     
       // Use color() function
-      var c = p.color('LimeGreen');
-      if (leftForceData < 7) {
+      var c;
+      // too loose
+      if (leftForceData < lowerForceLimit) {
         c = p.color('gold');
       }
-      else if (leftForceData > 10) {
-        c = p.color('red')
+      // too tight
+      else if (leftForceData > upperForceLimit) {
+        c = p.color('red');
       }
-      else {
+      // good
+      else if (leftForceData <= upperForceLimit && leftForceData >= lowerForceLimit) {
         c = p.color('LimeGreen');
+      }
+      // 
+      else {
+        c = p.color('black');
       }
 
       // Use fill() function to fill color
@@ -238,15 +258,18 @@ var rightForce = function(p) {
     p.draw = function() {
       p.background(255);     
       // Use color() function
-      var c = p.color('LimeGreen');
-      if (rightForceData < 7) {
+      var c;
+      if (rightForceData < lowerForceLimit) {
         c = p.color('gold');
       }
-      else if (rightForceData > 10) {
+      else if (rightForceData > upperForceLimit) {
         c = p.color('red');
       }
-      else {
+      else if (rightForceData <= upperForceLimit && rightForceData >= lowerForceLimit) {
         c = p.color('LimeGreen');
+      }
+      else {
+        c = p.color('black');
       }
 
       // Use fill() function to fill color
@@ -257,9 +280,6 @@ var rightForce = function(p) {
     }
 }
 var myRightForce = new p5(rightForce);
-
-
-
   
 </script>
 </body>
