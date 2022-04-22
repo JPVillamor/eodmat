@@ -1095,10 +1095,22 @@
                         pixels[index + 2] = 95;
                         pixels[index + 3] = 255;
                     }
+                    else if (IRCameraData[count] > 35 && IRCameraData[count] <= 38) {
+                        pixels[index + 0] = 255;
+                        pixels[index + 1] = 0;
+                        pixels[index + 2] = 68;
+                        pixels[index + 3] = 255;
+                    }
+                    else if (IRCameraData[count] > 38 && IRCameraData[count] <= 41) {
+                        pixels[index + 0] = 250;
+                        pixels[index + 1] = 62;
+                        pixels[index + 2] = 62;
+                        pixels[index + 3] = 255;
+                    }
                     else {
                         pixels[index + 0] = 245;
-                        pixels[index + 1] = 39;
-                        pixels[index + 2] = 39;
+                        pixels[index + 1] = 0;
+                        pixels[index + 2] = 0;
                         pixels[index + 3] = 255;
                     }
                     count++;
