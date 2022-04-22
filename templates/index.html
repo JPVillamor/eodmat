@@ -745,7 +745,7 @@
                     }
                     else if (data[i].sensor == 'accx') {
                         if (time_counter % displayFreq == 0) { 
-                            document.querySelector('#accx').innerText = "\xa0\xa0\xa0\xa0 X: " + data[i].value + " m/s/s";
+                            document.querySelector('#accx').innerText = "\xa0\xa0\xa0\xa0 X: " + (data[i].value).toFixed(2) + " m/s/s";
                         }
                         myDataX.push(data[i].value);
                         //time_axis.push(time_counter++);
@@ -763,7 +763,7 @@
                     }
                     else if (data[i].sensor == 'accy') {
                         if (time_counter % displayFreq == 0) { 
-                            document.querySelector('#accy').innerText = "\xa0\xa0\xa0\xa0 Y: " + data[i].value + " m/s/s";
+                            document.querySelector('#accy').innerText = "\xa0\xa0\xa0\xa0 Y: " + (data[i].value).toFixed(2) + " m/s/s";
                         }
                         myDataY.push(data[i].value);
                         //time_axis.push(time_counter++);
@@ -782,7 +782,7 @@
                         
                     }
                     else if (data[i].sensor == 'accz') {
-                        document.querySelector('#accz').innerText = "\xa0\xa0\xa0\xa0 Z: " + data[i].value + " m/s/s      ";
+                        document.querySelector('#accz').innerText = "\xa0\xa0\xa0\xa0 Z: " + (data[i].value).toFixed(2) + " m/s/s      ";
                         
                         myDataZ.push(data[i].value);
                         //time_axis.push(time_counter++);
